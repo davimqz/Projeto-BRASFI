@@ -1,0 +1,72 @@
+/* styles/home.css */
+
+/* Estilos específicos da página Home */
+.home-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh; 
+  background-color: rgb(50, 128, 128); 
+}
+
+/* Barra lateral */
+.sidebar {
+  width: 20%;
+  height: 100vh;
+  background-color: #1a1a1a;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 16px; /* Adiciona espaço interno consistente */
+  box-sizing: border-box;
+}
+
+/* Cabeçalho com logo e nome */
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px; /* Espaço entre logo e lista */
+}
+
+/* Imagem da logo */
+.logo {
+  width: 7vw;
+  height: auto; 
+  object-fit: contain;
+  margin-right: 12px; /* Aproxima o nome da logo */
+}
+
+/* Nome da empresa */
+.logo-name {
+  font-size: 2rem;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+/* Lista de comunidades */
+.community-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.community-item {
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.community-item:hover {
+  color: #d1d5db;
+}
+
+/* Conteúdo principal */
+.content {
+  padding: 24px; 
+}
+
+/* Título */
+.header {
+  font-size: 2.5rem; 
+  font-weight: bold;
+  margin-bottom: 16px;
+}

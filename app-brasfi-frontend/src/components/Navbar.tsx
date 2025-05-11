@@ -1,12 +1,17 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import '../styles/navbar.css'; // Importe o CSS da navbar
 
 export default function Navbar() {
   return (
-    <nav className="bg-gray-800 text-white p-4">
-      <ul className="flex space-x-4">
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/members">Members</Link></li>
+    <nav className="navbar">
+      <ul className="navbar-list">
+        <li className="navbar-item">
+          <Link to="/">Home</Link>
+        </li>
+        <li className="navbar-item">
+          <Link to="/members">Members</Link>
+        </li>
       </ul>
     </nav>
-  )
+  );
 }
