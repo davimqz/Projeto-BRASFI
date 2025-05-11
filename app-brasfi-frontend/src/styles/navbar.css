@@ -1,0 +1,32 @@
+/* styles/navbar.css */
+
+.navbar {
+  background-color: #1a1a1a;
+  color: white;
+  padding: 16px 32px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  border-bottom: 3px solid #6b3838;
+}
+
+.navbar-list {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-item a {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar-item a:hover {
+  color: #d1d5db;
+}
