@@ -1,0 +1,4 @@
+src\main\java\br\org\brasfi\entiities\Member.class
+MemberController.class
+main\java\br\org\brasfi\service\MemberService.class
+MemberDAO.class
