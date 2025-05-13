@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRASFI API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .endpoint {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border-left: 4px solid #2c3e50;
+        }
+        .method {
+            font-weight: bold;
+            color: #2c3e50;
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 3px;
+            margin-right: 10px;
+        }
+        .method.get { background: #e3f2fd; }
+        .method.post { background: #e8f5e9; }
+        .method.put { background: #fff3e0; }
+        .method.delete { background: #ffebee; }
+        .url {
+            color: #2980b9;
+            font-family: monospace;
+            font-size: 1.1em;
+        }
+        .description {
+            margin: 10px 0;
+            color: #666;
+        }
+        .params {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+        .param {
+            margin: 5px 0;
+        }
+        .param-name {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .param-type {
+            color: #666;
+            font-style: italic;
+        }
+        .response {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+        .frontend-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #2c3e50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .frontend-link:hover {
+            background: #34495e;
+        }
+        .section {
+            margin: 30px 0;
+        }
+        .note {
+            background: #fff3cd;
+            padding: 10px;
+            border-radius: 3px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>BRASFI API</h1>
+    
+    <div class="note">
+        <strong>Nota:</strong> Esta API requer autenticação via token. Para obter um token, faça login ou registre-se.
+    </div>
+
+    <div class="section">
+        <h2>Autenticação</h2>
+        
+        <div class="endpoint">
+            <div class="method post">POST</div>
+            <div class="url">/api/users/login/</div>
+            <div class="description">Autenticação de usuário</div>
+            <div class="params">
+                <div class="param">
+                    <span class="param-name">username</span>
+                    <span class="param-type">(string)</span> - Nome de usuário
+                </div>
+                <div class="param">
+                    <span class="param-name">password</span>
+                    <span class="param-type">(string)</span> - Senha
+                </div>
+            </div>
+            <div class="response">
+                <strong>Resposta:</strong>
+                <pre>{
+    "token": "seu-token-aqui",
+    "user": {
+        "id": 1,
+        "username": "usuario",
+        "email": "usuario@email.com",
+        ...
+    }
+}</pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <div class="method post">POST</div>
+            <div class="url">/api/users/register/</div>
+            <div class="description">Registro de novo usuário</div>
+            <div class="params">
+                <div class="param">
+                    <span class="param-name">username</span>
+                    <span class="param-type">(string)</span> - Nome de usuário
+                </div>
+                <div class="param">
+                    <span class="param-name">email</span>
+                    <span class="param-type">(string)</span> - Email
+                </div>
+                <div class="param">
+                    <span class="param-name">password</span>
+                    <span class="param-type">(string)</span> - Senha
+                </div>
+                <div class="param">
+                    <span class="param-name">password2</span>
+                    <span class="param-type">(string)</span> - Confirmação de senha
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Usuários</h2>
+        
+        <div class="endpoint">
+            <div class="method get">GET</div>
+            <div class="url">/api/users/users/</div>
+            <div class="description">Lista de usuários (paginação: ?page=1)</div>
+        </div>
+
+        <div class="endpoint">
+            <div class="method get">GET</div>
+            <div class="url">/api/users/users/me/</div>
+            <div class="description">Perfil do usuário atual</div>
+        </div>
+
+        <div class="endpoint">
+            <div class="method post">POST</div>
+            <div class="url">/api/users/users/{id}/follow/</div>
+            <div class="description">Seguir/deixar de seguir um usuário</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Posts</h2>
+        
+        <div class="endpoint">
+            <div class="method get">GET</div>
+            <div class="url">/api/posts/</div>
+            <div class="description">Lista de posts (paginação: ?page=1)</div>
+        </div>
+
+        <div class="endpoint">
+            <div class="method post">POST</div>
+            <div class="url">/api/posts/</div>
+            <div class="description">Criar um novo post</div>
+            <div class="params">
+                <div class="param">
+                    <span class="param-name">content</span>
+                    <span class="param-type">(string)</span> - Conteúdo do post
+                </div>
+                <div class="param">
+                    <span class="param-name">image</span>
+                    <span class="param-type">(file)</span> - Imagem (opcional)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Social</h2>
+        
+        <div class="endpoint">
+            <div class="method get">GET</div>
+            <div class="url">/api/social/messages/</div>
+            <div class="description">Lista de mensagens diretas</div>
+        </div>
+
+        <div class="endpoint">
+            <div class="method post">POST</div>
+            <div class="url">/api/social/messages/</div>
+            <div class="description">Enviar mensagem direta</div>
+            <div class="params">
+                <div class="param">
+                    <span class="param-name">receiver</span>
+                    <span class="param-type">(integer)</span> - ID do destinatário
+                </div>
+                <div class="param">
+                    <span class="param-name">content</span>
+                    <span class="param-type">(string)</span> - Conteúdo da mensagem
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="note">
+        <strong>Paginação:</strong> Todos os endpoints de listagem suportam paginação usando o parâmetro ?page=X
+    </div>
+
+    <a href="http://localhost:3000" class="frontend-link">Ir para o Frontend</a>
+</body>
+</html> 
