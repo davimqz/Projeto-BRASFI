@@ -35,7 +35,7 @@ header {
 }
 
 /*Primeira parte da main*/
-.first-hero {
+.cta {
     display: flex;
     justify-content:space-between;
     align-items: center;
@@ -43,12 +43,12 @@ header {
 }
 
 
-.first-hero h1 {
+.cta h1 {
     font-size: 50px;
     margin-bottom: 20px;
 }
 
-.first-hero-buttons {
+.cta-buttons {
     margin-top: 20px;
 }
 
