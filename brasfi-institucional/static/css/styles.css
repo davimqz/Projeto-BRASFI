@@ -6,7 +6,7 @@
 
 header {
     background-color: white;
-    padding: 20px 40px;
+    padding: 40px 60px;
 }
 
 .header {
@@ -39,7 +39,8 @@ header {
     display: flex;
     justify-content:space-between;
     align-items: center;
-    padding: 80px;
+    padding: 100px;
+    
 }
 
 
@@ -65,9 +66,9 @@ header {
     padding: 6px;
 }
 
-cta-image img {
-    width: 100px;
-    height: 100px;
+.cta-image img {
+    width: 500px;
+    height: 500px;
 }
 
 
