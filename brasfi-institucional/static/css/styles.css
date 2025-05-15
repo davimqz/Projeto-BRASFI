@@ -67,8 +67,8 @@ header {
 }
 
 .cta-image img {
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
 }
 
 
@@ -88,6 +88,43 @@ header {
 }
 
 /*Parte das features*/
+.features {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.features-container {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.feature {
+  max-width: 300px;
+}
+
+.buttons-features {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.second-btn,
+.third-btn {
+  padding: 10px 20px;
+  border: 1px solid black;
+  background: none;
+  cursor: pointer;
+}
+
+
 
 
 body {
