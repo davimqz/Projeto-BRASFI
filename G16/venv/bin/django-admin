@@ -1,5 +1,5 @@
 #!/bin/sh
-'''exec' "/home/ricobrto/Projetos 3/Projeto-BRASFI/G16/venv/bin/python3" "$0" "$@"
+'''exec' "/home/antonio/Área de Trabalho/Projeto-BRASFI-1/G16/venv/bin/python3" "$0" "$@"
 ' '''
 # -*- coding: utf-8 -*-
 import re
