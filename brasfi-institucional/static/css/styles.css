@@ -124,7 +124,69 @@ header {
   cursor: pointer;
 }
 
+/*Parte dos highlights*/
+.highlights {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 60px 40px;
+  gap: 60px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
+.left {
+  flex: 1;
+  min-width: 300px;
+}
+
+.right {
+  flex: 2;
+  min-width: 300px;
+}
+
+.marca {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.highlights-title h2 {
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.highlights-text h3 {
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.highlights-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.second-btn,
+.third-btn {
+  padding: 10px 20px;
+  border: 1px solid black;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.third-btn {
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+}
 
 
 body {
