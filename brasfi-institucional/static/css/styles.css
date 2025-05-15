@@ -5,15 +5,35 @@
 }
 
 header {
-    background-color: black;
-    color: white;
-    padding: 10px;
-    box-sizing: border-box;
+    background-color: white;
+    padding: 20px 40px;
 }
 
-heeader nav-list {
-    box-sizing: border-box;
+.header {
+    display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
 }
 
+.nav-bar ul {
+    list-style: none;
+    display: flex;
+    gap:30px;
+    color: black
+}
+
+.nav-bar a {
+    text-decoration: none;
+}
+
+.login button {
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border: none;
+}
+
+body {
+    background-color: black;
+}
