@@ -34,7 +34,7 @@ header {
     border: none;
 }
 
-/*Primeira parte da main*/
+/*Parte da cta*/
 .cta {
     display: flex;
     justify-content:space-between;
@@ -71,7 +71,22 @@ cta-image img {
 }
 
 
-/*Segunda parte da main*/
+/*Parte dos textos*/
+.section-text {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.section-text span {
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.section-text .text h2 {
+    margin-bottom: 20px;
+}
+
+/*Parte das features*/
 
 body {
     background-color: white;
