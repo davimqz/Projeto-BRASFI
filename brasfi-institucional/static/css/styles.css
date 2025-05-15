@@ -34,6 +34,43 @@ header {
     border: none;
 }
 
-body {
+/*Primeira parte da main*/
+.first-hero {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    padding: 80px;
+}
+
+
+.first-hero h1 {
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+.first-hero-buttons {
+    margin-top: 20px;
+}
+
+.first-btn {
     background-color: black;
+    color: white;
+    padding: 7px;
+    border: none;
+}
+
+.second-btn {
+    background-color: white;
+    color: black;
+    padding: 6px;
+}
+
+.fir
+right-image img {
+    width: 100px;
+    height: 100px;
+}
+
+body {
+    background-color: white;
 }
