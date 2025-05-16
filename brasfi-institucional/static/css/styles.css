@@ -323,6 +323,77 @@ header {
   background-color: white;
 }
 
+/*Section Testemonial*/
+.testimonial {
+  padding: 80px 40px;
+  background-color: #fff;
+}
+
+.testimonial-text {
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+.testimonial-text h2 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.testimonial-text p {
+  font-size: 16px;
+  color: #555;
+}
+
+.testimonial-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-between;
+}
+
+.testimonial-card {
+  flex: 1 1 300px;
+  max-width: 340px;
+}
+
+.stars {
+  font-size: 18px;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+.quote {
+  font-size: 15px;
+  font-style: italic;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.person {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #ddd;
+  border-radius: 50%;
+}
+
+.info h3 {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.info p {
+  font-size: 13px;
+  color: #555;
+}
+
+
 body {
   background-color: white;
 }
