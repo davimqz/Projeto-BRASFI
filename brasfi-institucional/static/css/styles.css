@@ -275,6 +275,54 @@ header {
 }
 
 
+/*Team*/
+.team {
+  padding: 80px 40px;
+  text-align: center;
+  background-color: #fff;
+}
+
+.team-header span {
+  font-size: 14px;
+  color: #444;
+}
+
+.team-header h2 {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.team-header p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+.member {
+  text-align: center;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  background-color: #ddd;
+  border-radius: 50%;
+  margin: 0 auto 15px;
+}
+
+
+.secondary {
+  background-color: white;
+}
+
 body {
-    background-color: white;
+  background-color: white;
 }
