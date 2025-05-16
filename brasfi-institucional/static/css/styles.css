@@ -393,6 +393,171 @@ header {
   color: #555;
 }
 
+/*Newsletter*/
+
+.newsletter-cta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 40px;
+  background-color: #fff;
+  flex-wrap: wrap;
+}
+
+.cta-text h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.cta-text p {
+  font-size: 14px;
+  color: #333;
+}
+
+.newsletter-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid #000;
+}
+
+.btn.dark {
+  background-color: #000;
+  color: #fff;
+}
+
+.btn.light {
+  background-color: #fff;
+  color: #000;
+}
+
+
+.newsletter {
+  background-color: #555;
+  color: white;
+  text-align: center;
+  padding: 60px 40px;
+}
+
+.newsletter-text h2 {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.newsletter-text p {
+  font-size: 15px;
+  color: #eee;
+  line-height: 1.5;
+  margin-bottom: 30px;
+}
+
+.newsletter-form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.newsletter-form input[type="email"] {
+  padding: 10px;
+  width: 280px;
+  border: none;
+  font-size: 14px;
+  outline: none;
+}
+
+.newsletter-form button {
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: white;
+  color: #000;
+  border: none;
+  cursor: pointer;
+}
+
+.terms {
+  font-size: 12px;
+  color: #ccc;
+}
+
+/*FAQ*/
+.faq-section {
+  padding: 80px 40px;
+  background-color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.faq-header h2 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.faq-header p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.faq-item {
+  display: flex;
+  flex-wrap: wrap;
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
+
+.faq-item h3 {
+  flex: 1 1 30%;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.faq-item p {
+  flex: 1 1 70%;
+  font-size: 14px;
+  color: #333;
+}
+
+.faq-contact {
+  padding: 40px;
+  max-width: 500px;
+}
+
+.faq-contact h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.faq-contact p {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.contact-btn {
+  padding: 10px 20px;
+  border: 1px solid #000;
+  background-color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
 
 body {
   background-color: white;
