@@ -43,8 +43,21 @@ class Post(BaseEntity):
         help_text="Indica se o post está visível"
     )
 
+    def toggle_visibility(self):
+        self.visible = not self.visible
+        self.save()
+
+    def like(self, member: Member):
+        self.likes.add(member)
+
+    def unlike(self, member: Member):
+        self.likes.remove(member)
+
+    def total_likes(self) -> int:
+        return self.likes.count()
+
     def __str__(self):
-        return f"Post de {self.author.username}: {self.content[:30]}..."
+        return f"{self.author.username}: {self.content[:30]}..."
 
     class Meta:
         verbose_name = "Post"

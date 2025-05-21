@@ -13,13 +13,14 @@ class MemberAdmin(DjangoUserAdmin):
     search_fields = ('username', 'email', 'cpf', 'first_name', 'last_name')
     ordering = ('username',)
     filter_horizontal = ('groups', 'user_permissions', 'backgrounds')
+    readonly_fields = ('created_at',)
 
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name', 'email', 'cpf', 'phone', 'description')}),
         (_('Backgrounds'), {'fields': ('backgrounds',)}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
-        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+        (_('Important dates'), {'fields': ('last_login', 'created_at')}),
     )
     add_fieldsets = (
         (None, {

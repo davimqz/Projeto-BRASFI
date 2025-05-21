@@ -1,57 +1,51 @@
-from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
-from django.db import transaction
-from datetime import datetime
-
 from posts.dao.post_dao import PostDAO
 from posts.models.post_model import Post
 from accounts.models.member_model import Member
+from django.utils import timezone
 
 
 class PostService:
+
     @staticmethod
-    @transaction.atomic
     def create_post(author: Member, content: str, media_file: str = None) -> Post:
-        if not content.strip():
-            raise ValueError("O conteúdo do post não pode estar vazio.")
         return PostDAO.create(author, content.strip(), media_file)
 
     @staticmethod
-    def get_post(post_id: str) -> Post:
-        post = PostDAO.get_by_id(post_id)
-        if not post:
-            raise ObjectDoesNotExist("Post não encontrado.")
+    def edit_post(post_id: str, new_content: str, editor: Member) -> Post:
+        post = PostDAO.find_by_id(post_id)
+        if post.author != editor:
+            raise PermissionError("Você não tem permissão para editar este post.")
+        post.content = new_content.strip()
+        post.edited = True
+        post.edited_at = timezone.now()
+        PostDAO.save(post)
         return post
 
     @staticmethod
-    @transaction.atomic
-    def edit_post(requester: Member, post_id: str, new_content: str) -> None:
-        post = PostDAO.get_by_id(post_id)
-        if not post:
-            raise ObjectDoesNotExist("Post não encontrado.")
-        if post.author.id != requester.id:
-            raise PermissionDenied("Você não pode editar um post que não é seu.")
-        PostDAO.update_content(post, new_content.strip(), datetime.now())
+    def delete_post(post_id: str, requester: Member):
+        post = PostDAO.find_by_id(post_id)
+        if post.author != requester:
+            raise PermissionError("Você não tem permissão para excluir este post.")
+        PostDAO.delete(post)
 
     @staticmethod
-    @transaction.atomic
-    def hide_post(post_id: str, requester: Member) -> None:
-        post = PostDAO.get_by_id(post_id)
-        if not post:
-            raise ObjectDoesNotExist("Post não encontrado.")
-        if post.author.id != requester.id:
-            raise PermissionDenied("Você não pode ocultar um post que não é seu.")
-        PostDAO.hide(post)
+    def toggle_visibility(post_id: str, requester: Member):
+        post = PostDAO.find_by_id(post_id)
+        if post.author != requester:
+            raise PermissionError("Você não pode alterar a visibilidade deste post.")
+        post.toggle_visibility()
 
     @staticmethod
-    def list_posts():
-        return PostDAO.list_all_visible()
+    def like_post(post_id: str, member: Member):
+        post = PostDAO.find_by_id(post_id)
+        post.like(member)
 
     @staticmethod
-    @transaction.atomic
-    def delete_post(post_id: str, requester: Member) -> None:
-        post = PostDAO.get_by_id(post_id)
-        if not post:
-            raise ObjectDoesNotExist("Post não encontrado.")
-        if post.author.id != requester.id:
-            raise PermissionDenied("Você não pode deletar um post que não é seu.")
-        PostDAO.soft_delete(post)
+    def unlike_post(post_id: str, member: Member):
+        post = PostDAO.find_by_id(post_id)
+        post.unlike(member)
+
+    @staticmethod
+    def count_likes(post_id: str) -> int:
+        post = PostDAO.find_by_id(post_id)
+        return post.total_likes()
