@@ -2,6 +2,9 @@ package Projeto_BRASFI.api_brasfi_backend.controller;
 
 import Projeto_BRASFI.api_brasfi_backend.domain.member.*;
 import Projeto_BRASFI.api_brasfi_backend.domain.member.block.MemberBlockService;
+import Projeto_BRASFI.api_brasfi_backend.domain.member.community.CommunityMember;
+import Projeto_BRASFI.api_brasfi_backend.domain.member.community.CommunityMemberService;
+import Projeto_BRASFI.api_brasfi_backend.domain.member.community.RoleRequest;
 import Projeto_BRASFI.api_brasfi_backend.domain.member.follow.MemberFollowService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +20,14 @@ public class MemberController {
     private final MemberService service;
     private final MemberBlockService memberBlockService;
     private final MemberFollowService memberFollowService;
+    private final CommunityMemberService communityMemberService;
 
-    public MemberController(MemberService service, MemberBlockService memberBlockService, MemberFollowService memberFollowService) {
+    public MemberController(MemberService service, MemberBlockService memberBlockService,
+                            MemberFollowService memberFollowService, CommunityMemberService communityMemberService) {
         this.service = service;
         this.memberBlockService = memberBlockService;
         this.memberFollowService = memberFollowService;
+        this.communityMemberService = communityMemberService;
     }
 
 
@@ -77,4 +83,43 @@ public class MemberController {
         memberFollowService.unfollowMember(memberId, followerId);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/{memberId}/join-community/{communityId}")
+    public ResponseEntity<Void> joinCommunity(
+            @PathVariable Long memberId,
+            @PathVariable Long communityId,
+            @RequestBody(required = false) RoleRequest roleRequest) {
+
+        CommunityMember.Role role = CommunityMember.Role.MEMBER;
+
+        if (roleRequest != null && roleRequest.getRole() != null) {
+            role = roleRequest.getRole();
+        }
+
+        communityMemberService.addMemberToCommunity(communityId, memberId, role);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{memberId}/leave-community/{communityId}")
+    public ResponseEntity<Void> leaveCommunity(@PathVariable Long memberId, @PathVariable Long communityId) {
+        communityMemberService.removeMemberFromCommunity(communityId, memberId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{memberId}/change-role/{communityId}")
+    public ResponseEntity<Void> changeCommunityRole(
+            @PathVariable Long memberId,
+            @PathVariable Long communityId,
+            @RequestBody(required = false) RoleRequest roleRequest) {
+
+        CommunityMember.Role role = CommunityMember.Role.MEMBER;
+
+        if (roleRequest != null && roleRequest.getRole() != null) {
+            role = roleRequest.getRole();
+        }
+
+        communityMemberService.changeRole(communityId, memberId, role);
+        return ResponseEntity.ok().build();
+    }
+
 }
