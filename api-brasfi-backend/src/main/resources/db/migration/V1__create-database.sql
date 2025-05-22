@@ -49,19 +49,6 @@ CREATE TABLE Community_Members (
                                    FOREIGN KEY (member_id) REFERENCES Member(id)
 );
 
-CREATE TABLE Community_Leader (
-                                  member_id INT PRIMARY KEY,
-                                  FOREIGN KEY (member_id) REFERENCES Member(id)
-);
-
-CREATE TABLE Community_Leader_Assignments (
-                                              leader_id INT,
-                                              community_id INT,
-                                              PRIMARY KEY (leader_id, community_id),
-                                              FOREIGN KEY (leader_id) REFERENCES Community_Leader(member_id),
-                                              FOREIGN KEY (community_id) REFERENCES Community(id)
-);
-
 CREATE TABLE Invitation (
                             id INT AUTO_INCREMENT PRIMARY KEY,
                             community_id INT,
@@ -71,7 +58,7 @@ CREATE TABLE Invitation (
                             accepted BOOLEAN,
                             FOREIGN KEY (community_id) REFERENCES Community(id),
                             FOREIGN KEY (invited_member_id) REFERENCES Member(id),
-                            FOREIGN KEY (invited_by) REFERENCES Community_Leader(member_id)
+                            FOREIGN KEY (invited_by) REFERENCES Member(id)
 );
 
 CREATE TABLE Post (
@@ -105,10 +92,8 @@ CREATE TABLE Comment (
                          edited_at DATETIME,
                          chat_id INT,
                          deleted BOOLEAN,
-                         removed_by INT,
                          FOREIGN KEY (author_id) REFERENCES Member(id),
-                         FOREIGN KEY (chat_id) REFERENCES Chat(id),
-                         FOREIGN KEY (removed_by) REFERENCES Community_Leader(member_id)
+                         FOREIGN KEY (chat_id) REFERENCES Chat(id)
 );
 
 

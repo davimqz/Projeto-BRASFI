@@ -46,11 +46,26 @@ public class MemberService {
     }
 
     public Member update(Long id, MemberDto dto) {
+        if (repository.existsByUsernameAndIdNot(dto.username(), id)) {
+            throw new IllegalArgumentException("User with this username already exists.");
+        }
+        if (repository.existsByEmailAndIdNot(dto.email(), id)) {
+            throw new IllegalArgumentException("User with this email already exists.");
+        }
+
         Member member = findById(id);
-        Member updated = new Member(id, dto.name(), dto.username(), dto.email(),
-                dto.passwordHash(), member.getCreatedAt(), dto.description());
+        Member updated = new Member(
+                id,
+                dto.name(),
+                dto.username(),
+                dto.email(),
+                dto.passwordHash(),
+                member.getCreatedAt(),
+                dto.description()
+        );
         return repository.save(updated);
     }
+
 
     public void delete(Long id) {
         repository.deleteById(id);
