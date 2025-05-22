@@ -1,8 +1,8 @@
 package Projeto_BRASFI.api_brasfi_backend.controller;
 
-import Projeto_BRASFI.api_brasfi_backend.domain.community.invitation.Invitation;
-import Projeto_BRASFI.api_brasfi_backend.domain.community.invitation.InvitationRequest;
-import Projeto_BRASFI.api_brasfi_backend.domain.community.invitation.InvitationService;
+import Projeto_BRASFI.api_brasfi_backend.domain.invitation.Invitation;
+import Projeto_BRASFI.api_brasfi_backend.domain.invitation.InvitationRequest;
+import Projeto_BRASFI.api_brasfi_backend.domain.invitation.InvitationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

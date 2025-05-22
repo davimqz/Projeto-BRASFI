@@ -1,4 +1,4 @@
-package Projeto_BRASFI.api_brasfi_backend.domain.community.invitation;
+package Projeto_BRASFI.api_brasfi_backend.domain.invitation;
 
 import org.springframework.stereotype.Service;
 

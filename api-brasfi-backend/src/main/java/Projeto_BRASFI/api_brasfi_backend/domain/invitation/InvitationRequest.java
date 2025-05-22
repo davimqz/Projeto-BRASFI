@@ -1,4 +1,4 @@
-package Projeto_BRASFI.api_brasfi_backend.domain.community.invitation;
+package Projeto_BRASFI.api_brasfi_backend.domain.invitation;
 
 public class InvitationRequest {
     private Integer communityId;
