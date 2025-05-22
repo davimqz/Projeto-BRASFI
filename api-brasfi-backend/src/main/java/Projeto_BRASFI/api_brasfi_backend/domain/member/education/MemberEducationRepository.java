@@ -1,4 +1,4 @@
-package Projeto_BRASFI.api_brasfi_backend.domain.member;
+package Projeto_BRASFI.api_brasfi_backend.domain.member.education;
 
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;

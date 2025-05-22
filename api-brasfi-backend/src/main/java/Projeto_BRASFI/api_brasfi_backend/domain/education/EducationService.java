@@ -1,8 +1,8 @@
 package Projeto_BRASFI.api_brasfi_backend.domain.education;
 
 import Projeto_BRASFI.api_brasfi_backend.domain.member.Member;
-import Projeto_BRASFI.api_brasfi_backend.domain.member.MemberEducation;
-import Projeto_BRASFI.api_brasfi_backend.domain.member.MemberEducationRepository;
+import Projeto_BRASFI.api_brasfi_backend.domain.member.education.MemberEducation;
+import Projeto_BRASFI.api_brasfi_backend.domain.member.education.MemberEducationRepository;
 import Projeto_BRASFI.api_brasfi_backend.domain.member.MemberRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;

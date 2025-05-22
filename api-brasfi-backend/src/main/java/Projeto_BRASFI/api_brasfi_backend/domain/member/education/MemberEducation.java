@@ -1,6 +1,7 @@
-package Projeto_BRASFI.api_brasfi_backend.domain.member;
+package Projeto_BRASFI.api_brasfi_backend.domain.member.education;
 
 import Projeto_BRASFI.api_brasfi_backend.domain.education.Education;
+import Projeto_BRASFI.api_brasfi_backend.domain.member.Member;
 import jakarta.persistence.*;
 import lombok.*;
 
