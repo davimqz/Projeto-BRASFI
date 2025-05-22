@@ -3,6 +3,9 @@ package Projeto_BRASFI.api_brasfi_backend.controller;
 import Projeto_BRASFI.api_brasfi_backend.domain.chat.Chat;
 import Projeto_BRASFI.api_brasfi_backend.domain.chat.ChatDto;
 import Projeto_BRASFI.api_brasfi_backend.domain.chat.ChatService;
+import Projeto_BRASFI.api_brasfi_backend.domain.chat.participants.ChatParticipant;
+import Projeto_BRASFI.api_brasfi_backend.domain.chat.participants.ChatParticipantDto;
+import Projeto_BRASFI.api_brasfi_backend.domain.chat.participants.ChatParticipantService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,10 +16,14 @@ import java.util.List;
 public class ChatController {
 
     private final ChatService chatService;
+    private final ChatParticipantService participantService;
 
-    public ChatController(ChatService chatService) {
+    public ChatController(ChatService chatService, ChatParticipantService participantService) {
         this.chatService = chatService;
+        this.participantService = participantService;
     }
+
+    // Chat endpoints
 
     @PostMapping
     public ResponseEntity<Chat> create(@RequestBody ChatDto dto) {
@@ -44,5 +51,22 @@ public class ChatController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         chatService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{chatId}/participant/{memberId}")
+    public ResponseEntity<ChatParticipant> addParticipant(@PathVariable Long chatId, @PathVariable Long memberId) {
+        ChatParticipant participant = participantService.addParticipant(chatId, memberId);
+        return ResponseEntity.ok(participant);
+    }
+
+    @DeleteMapping("/{chatId}/participant/{memberId}")
+    public ResponseEntity<Void> removeParticipant(@PathVariable Long chatId, @PathVariable Long memberId) {
+        participantService.removeParticipant(chatId, memberId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{chatId}/participant")
+    public ResponseEntity<List<ChatParticipant>> listParticipants(@PathVariable Long chatId) {
+        return ResponseEntity.ok(participantService.getParticipantsByChatId(chatId));
     }
 }
