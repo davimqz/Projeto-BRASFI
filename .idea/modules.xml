@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Projeto-BRASFI.iml" filepath="$PROJECT_DIR$/.idea/Projeto-BRASFI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/api-brasfi-backend/api-brasfi-backend.iml" filepath="$PROJECT_DIR$/api-brasfi-backend/api-brasfi-backend.iml" />
     </modules>
   </component>
 </project>
