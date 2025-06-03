@@ -1,0 +1,456 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  background-color: #004225;
+}
+
+
+/* HEADER POR CIMA DA IMAGEM */
+/* Header fixo escuro */
+header {
+  background-color: #004225;
+  padding: 15px 5%;
+  position: relative;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Linha da navbar */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LOGO em duas partes */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-icon img {
+  height: 24px;
+}
+
+.logo-texto {
+  font-weight: bold;
+  letter-spacing: 3px;
+  color: white;
+  font-size: 1.2rem;
+}
+
+/* NAV CENTRAL */
+.nav-list ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-list ul li a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-list ul li a:hover {
+  color: #00ff84;
+}
+
+/* BOTÃO ENTRAR */
+.botao-entrar {
+  display: flex;
+}
+
+.btn-verde {
+  background-color: #00ff84;
+  color: #0d0d0d;
+  padding: 8px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.btn-verde:hover {
+  background-color: #00e373;
+}
+
+.hero-ajuda {
+  position: relative;
+  background-image: url('../images/14.png'); /* atualize com seu caminho */
+  background-size: cover;
+  background-position: center;
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  overflow: hidden;
+}
+
+/* Shade escurecedor */
+.hero-ajuda::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); /* intensidade do escurecimento */
+  z-index: 0;
+}
+
+/* Conteúdo acima do overlay */
+.hero-conteudo {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.hero-conteudo h1 {
+  font-size: 2.5rem;
+  line-height: 1.3;
+  margin-bottom: 20px;
+}
+
+.hero-conteudo p {
+  font-size: 1.1rem;
+  color: #eee;
+}
+
+.faq {
+  background-color: #004225;
+  color: white;
+  padding: 60px 5%;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.faq h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.faq p {
+  color: #ccc;
+  margin-bottom: 40px;
+  font-size: 1rem;
+}
+
+.faq-item {
+  border-top: 1px solid #ccc;
+  padding: 20px 0;
+  text-align: left;
+}
+
+.faq-pergunta {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.05rem;
+  font-weight: bold;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-pergunta::after {
+  content: "▾";
+  font-size: 1rem;
+  transition: transform 0.3s;
+}
+
+.faq-pergunta.ativo::after {
+  transform: rotate(180deg);
+}
+
+.faq-resposta {
+  margin-top: 10px;
+  display: none;
+  color: #ddd;
+  font-size: 0.95rem;
+}
+
+.duvida-final {
+  background-color: #004225;
+  color: white;
+  text-align: center;
+  padding: 60px 5%;
+}
+
+.duvida-final h2 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.duvida-final p {
+  color: #ccc;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.duvida-final .btn-transparente {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 25px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.duvida-final .btn-transparente:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.contato-section {
+  background-color: #0d1d18;
+  color: white;
+  display: flex;
+  gap: 50px;
+  padding: 60px 5%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.contato-img img {
+  width: 100%;
+  max-width: 360px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.contato-form {
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contato-form h2 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.contato-form p {
+  color: #ccc;
+  margin-bottom: 10px;
+}
+
+.contato-form label {
+  font-size: 0.95rem;
+  margin-top: 10px;
+}
+
+.contato-form input,
+.contato-form textarea {
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 8px;
+  padding: 10px;
+  color: white;
+  font-size: 1rem;
+}
+
+.contato-form textarea::placeholder {
+  color: #888;
+}
+
+.checkbox-termos {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.contato-form button {
+  background-color: #00ff84;
+  color: #0d0d0d;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: fit-content;
+}
+
+.contato-form button:hover {
+  background-color: #00e373;
+}
+
+.newsletter-section {
+  background-image: url('../images/16.png'); /* substitua com o caminho correto */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  padding: 0 5%;
+  overflow: hidden;
+}
+
+.newsletter-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); /* shade escuro */
+  z-index: 0;
+}
+
+.newsletter-overlay {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+  width: 100%;
+}
+
+.newsletter-overlay h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  line-height: 1.3;
+}
+
+.newsletter-overlay p {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+  color: #ddd;
+}
+
+.newsletter-form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.newsletter-form input {
+  padding: 10px 15px;
+  border-radius: 25px;
+  border: 1px solid white;
+  background-color: transparent;
+  color: white;
+  min-width: 250px;
+}
+
+.newsletter-form input::placeholder {
+  color: #ccc;
+}
+
+.newsletter-form button {
+  background-color: #00ff84;
+  color: #0d0d0d;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.newsletter-form button:hover {
+  background-color: #00e373;
+}
+
+.newsletter-overlay small {
+  font-size: 0.8rem;
+  color: #ccc;
+}
+
+
+
+.rodape {
+  background-color: #004225;
+  color: white;
+  padding: 40px 5%;
+  font-size: 0.95rem;
+}
+
+.rodape img {
+  width: 40px;
+}
+
+.rodape-topo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.logo-rodape {
+  width: 130px;
+}
+
+.menu-rodape {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.menu-rodape a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.menu-rodape a:hover {
+  text-decoration: underline;
+}
+
+.linha-rodape {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.rodape-baixo {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+}
+
+.rodape-baixo p {
+  color: #ccc;
+  margin: 0;
+}
+
+.links-legais {
+  display: flex;
+  gap: 20px;
+}
+
+.links-legais a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.links-legais a:hover {
+  text-decoration: underline;
+}
+
+
