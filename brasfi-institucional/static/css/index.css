@@ -1,0 +1,529 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #0d1d18;
+  color: white;
+}
+
+/* HEADER POR CIMA DA IMAGEM */
+/* Header fixo escuro */
+header {
+  background-color: #121f1a;
+  padding: 15px 5%;
+  position: relative;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Linha da navbar */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LOGO em duas partes */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-icon img {
+  height: 24px;
+}
+
+.logo-texto {
+  font-weight: bold;
+  letter-spacing: 3px;
+  color: white;
+  font-size: 1.2rem;
+}
+
+/* NAV CENTRAL */
+.nav-list ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-list ul li a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-list ul li a:hover {
+  color: #00ff84;
+}
+
+/* BOTÃO ENTRAR */
+.botao-entrar {
+  display: flex;
+}
+
+.btn-verde {
+  background-color: #00ff84;
+  color: #0d0d0d;
+  padding: 8px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.btn-verde:hover {
+  background-color: #00e373;
+}
+
+.section-cta {
+  position: relative;
+  background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/1.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 20px;
+
+}
+
+
+.cta-overlay {
+  max-width: 600px;
+  margin-left: 5%;
+}
+
+.cta-overlay h1 {
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.cta-overlay p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.cta-buttons .btn-verde {
+  background-color: #00ff84;
+  color: #0d0d0d;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cta-buttons .btn-transparente {
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.main {
+  background-color: #0d1d18;
+  padding: 60px 5%;
+  color: white;
+  text-align: center;
+}
+
+.first h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.first p {
+  max-width: 800px;
+  margin: 0 auto 40px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.first-card {
+  background-color: #0D1D18;
+  border-radius: 20px;
+  padding: 20px;
+  width: 280px;
+  text-align: center;
+}
+
+.first-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+.first-card h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.first-card p {
+  font-size: 0.95rem;
+  color: #ccc;
+}
+
+/* Botões */
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.btn-verde {
+  background-color: #00ff84;
+  color: #0d0d0d;
+  padding: 10px 25px;
+  border-radius: 25px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-transparente {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.feedbacks {
+  background-color: #00ff84;
+  padding: 60px 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  color: black;
+}
+
+.feedback-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  max-width: 1000px;
+  gap: 40px;
+}
+
+.feedback-image img {
+  width: 400px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.feedback-texto {
+  max-width: 500px;
+}
+
+.feedback-texto .depoimento {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+}
+
+.feedback-texto .autor {
+  font-weight: bold;
+}
+
+.feedback-texto .autor span {
+  font-weight: normal;
+  font-size: 0.95rem;
+  color: #111;
+}
+
+/* Controle inferior */
+.feedback-controles {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.bolinhas span {
+  font-size: 24px;
+  margin-right: 5px;
+  opacity: 0.5;
+}
+
+.bolinhas .ativa {
+  opacity: 1;
+}
+
+.setas {
+  display: flex;
+  gap: 10px;
+}
+
+.arrow {
+  background-color: transparent;
+  border: 1px solid black;
+  color: black;
+  padding: 8px 12px;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.arrow:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.section-cta-2 {
+  position: relative;
+  background-image: url('../images/5.jpg'); /* Substitua pelo nome correto da imagem */
+  background-size: cover;
+  background-position: center;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.cta2-overlay {
+  margin-left: 5%;
+  max-width: 600px;
+  z-index: 1;
+}
+
+.cta2-overlay h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.cta2-overlay p {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+}
+
+.cta2-botoes {
+  display: flex;
+  gap: 15px;
+}
+
+.cta2-botoes .btn-verde {
+  background-color: #00ff84;
+  color: #0d0d0d;
+  padding: 10px 25px;
+  border-radius: 25px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.cta2-botoes .btn-transparente {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.planos {
+  padding: 60px 5%;
+  background-color: #0d1d18;
+  color: white;
+  text-align: center;
+}
+
+.planos h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.planos p {
+  color: #ccc;
+  margin-bottom: 30px;
+}
+
+/* Botões de alternância */
+.troca-periodo {
+  display: inline-flex;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 25px;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.troca-periodo button {
+  background: transparent;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.troca-periodo .ativo {
+  background-color: white;
+  color: black;
+}
+
+/* Cards */
+.cards-planos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.card-plano {
+  background-color: #121212;
+  border: 1px solid #444;
+  border-radius: 20px;
+  padding: 30px;
+  width: 280px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-plano h3 {
+  font-size: 1.3rem;
+  margin-bottom: 5px;
+}
+
+.card-plano .descricao {
+  color: #aaa;
+  margin-bottom: 15px;
+}
+
+.card-plano hr {
+  border: none;
+  border-top: 1px solid #333;
+  margin: 10px 0;
+}
+
+.card-plano .preco {
+  font-size: 2.2rem;
+  margin-bottom: 5px;
+}
+
+.card-plano .economia {
+  color: #ffffff;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.card-plano .btn-verde {
+  background-color: #00ff84;
+  color: black;
+  padding: 10px;
+  border-radius: 25px;
+  text-align: center;
+  font-weight: bold;
+  text-decoration: none;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.rodape {
+  background-color: #004225;
+  color: white;
+  padding: 40px 5%;
+  font-size: 0.95rem;
+}
+
+.rodape img {
+  width: 40px;
+}
+
+.rodape-topo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.logo-rodape {
+  width: 130px;
+}
+
+.menu-rodape {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.menu-rodape a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.menu-rodape a:hover {
+  text-decoration: underline;
+}
+
+.linha-rodape {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.rodape-baixo {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+}
+
+.rodape-baixo p {
+  color: #ccc;
+  margin: 0;
+}
+
+.links-legais {
+  display: flex;
+  gap: 20px;
+}
+
+.links-legais a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.links-legais a:hover {
+  text-decoration: underline;
+}
