@@ -1,6 +1,9 @@
 package Projeto_BRASFI.api_brasfi_backend.controller;
 
 import Projeto_BRASFI.api_brasfi_backend.domain.post.*;
+import Projeto_BRASFI.api_brasfi_backend.domain.post.like.PostLike;
+import Projeto_BRASFI.api_brasfi_backend.domain.post.like.PostLikeDto;
+import Projeto_BRASFI.api_brasfi_backend.domain.post.like.PostLikeService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +16,11 @@ import java.util.List;
 public class PostController {
 
     private final PostService service;
+    private final PostLikeService likeService;
 
-    public PostController(PostService service) {
+    public PostController(PostService service, PostLikeService likeService) {
         this.service = service;
+        this.likeService = likeService;
     }
 
     @PostMapping
@@ -44,4 +49,18 @@ public class PostController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/{postId}/like/{memberId}")
+    public ResponseEntity<PostLike> like(@PathVariable Long postId, @PathVariable Long memberId) {
+        PostLikeDto dto = new PostLikeDto(memberId, postId);
+        return ResponseEntity.ok(likeService.like(dto));
+    }
+
+    @DeleteMapping("/{postId}/unlike/{memberId}")
+    public ResponseEntity<Void> unlike(@PathVariable Long postId, @PathVariable Long memberId) {
+        likeService.unlike(memberId, postId);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }
