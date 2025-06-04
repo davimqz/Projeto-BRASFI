@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../../services/authService';
-import type { LoginCredentials } from '../../types/auth';
+import type { LoginCredentials, AuthResponse } from '../../types/auth';
 import './Auth.css';
 
 export function Login() {
@@ -25,9 +25,17 @@ export function Login() {
     setError('');
     
     try {
-      await authService.login(credentials);
-      navigate('/home');
+      const response: AuthResponse = await authService.login(credentials);
+      
+      if (response.token && response.id) {
+        authService.setToken(response.token);
+        localStorage.setItem('userId', response.id.toString());
+        navigate('/home');
+      } else {
+        setError('Resposta de login inválida. Token ou ID do usuário ausente.');
+      }
     } catch (err) {
+      console.error("Erro durante o login:", err);
       setError('Usuário ou senha inválidos');
     }
   };

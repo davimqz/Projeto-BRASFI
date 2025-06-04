@@ -15,6 +15,7 @@
   position: sticky; /* Para manter o header no topo ao rolar */
   top: 0;
   z-index: 1000; /* Para garantir que fique acima de outros conteúdos */
+  /* border: 2px solid var(--white); */ /* Opcional: borda branca */
 }
 
 .logo-container-header {
@@ -49,6 +50,18 @@
   font-weight: bold;
   cursor: pointer;
   /* border: 2px solid var(--white); */ /* Opcional: borda branca */
+}
+
+.user-greeting-avatar-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* Espaço entre a saudação e o avatar */
+}
+
+.user-greeting {
+  color: var(--white, #ffffff);
+  font-size: 0.95rem;
+  font-weight: 500;
 }
 
 /* Ajustes para o home-container e main-content-area */

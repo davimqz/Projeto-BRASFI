@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import axios, { AxiosError } from 'axios'; // Importar AxiosError
+import { Link } from 'react-router-dom'; // Importar Link
 import '../../styles/global.css'; // Pode ser útil para estilos globais
 import '../../styles/profile.css'; // Criaremos este arquivo para os estilos da página de perfil
+
+const API_URL = '/api'; // ATUALIZADO: Defina a URL base da sua API (usando o proxy)
 
 // Define um estilo básico para o container da página de perfil
 const profilePageStyle: React.CSSProperties = {
@@ -25,50 +29,141 @@ const placeholderTextStyle: React.CSSProperties = {
   textAlign: 'center',
 };
 
-// Simulação de dados do usuário - no futuro, viria de uma API/contexto
-const mockUserData = {
-  name: 'Usuário Exemplo',
-  email: 'usuario@exemplo.com',
-  description: 'Esta é uma descrição de exemplo sobre mim. Gosto de programar e tomar café.',
-};
-
 const ProfilePage: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [description, setDescription] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  // Carregar dados do usuário ao montar o componente (simulação)
+  const getAuthToken = () => localStorage.getItem('token'); // ATUALIZADO: chave do token
+  const getUserId = () => localStorage.getItem('userId');
+
+  // Carregar dados do usuário ao montar o componente
   useEffect(() => {
-    setName(mockUserData.name);
-    setEmail(mockUserData.email);
-    setDescription(mockUserData.description);
+    const fetchUserData = async () => {
+      const token = getAuthToken();
+      const userId = getUserId();
+
+      if (!token || !userId) {
+        setError('Usuário não autenticado ou ID não encontrado.');
+        setIsLoading(false);
+        return;
+      }
+
+      try {
+        setIsLoading(true);
+        setSuccessMessage(null);
+        setError(null);
+        const response = await axios.get<{ name?: string; email?: string; description?: string }>(`${API_URL}/member/${userId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const userData = response.data;
+        setName(userData.name || '');
+        setEmail(userData.email || '');
+        setDescription(userData.description || '');
+      } catch (err: unknown) { // Tipar err como unknown
+        console.error("Erro ao buscar dados do usuário:", err);
+        // Pode-se adicionar uma verificação mais específica do erro se necessário
+        // if (err instanceof AxiosError) { ... }
+        setError('Falha ao carregar dados do perfil. Tente novamente mais tarde.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchUserData();
   }, []);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (password !== confirmPassword) {
-      alert('As senhas não coincidem!');
+    setError(null);
+    setSuccessMessage(null);
+
+    if (password && password !== confirmPassword) {
+      setError('As senhas não coincidem!');
       return;
     }
-    // Lógica para enviar os dados atualizados para a API
-    console.log('Dados do perfil atualizados:', {
+
+    const token = getAuthToken();
+    const userId = getUserId();
+
+    if (!token || !userId) {
+      setError('Usuário não autenticado. Não é possível salvar.');
+      return;
+    }
+
+    // Definir um tipo para updatedData para maior clareza
+    interface UpdatePayload {
+      name: string;
+      email: string;
+      description: string;
+      password?: string;
+    }
+
+    const updatedData: UpdatePayload = {
       name,
       email,
-      password, // Enviar a senha apenas se ela foi alterada e validada
       description,
-    });
-    alert('Perfil atualizado com sucesso! (Simulação)');
-    // Limpar campos de senha após o envio
-    setPassword('');
-    setConfirmPassword('');
+    };
+
+    if (password) {
+      updatedData.password = password;
+    }
+
+    try {
+      setIsLoading(true);
+      // A resposta do PUT pode não ser usada diretamente, mas podemos logá-la ou verificar o status
+      /* const response = */ await axios.put(`${API_URL}/member/${userId}`, updatedData, {
+        headers: { Authorization: `Bearer ${token}`,
+                  'Content-Type': 'application/json' },
+      });
+      
+      setSuccessMessage('Perfil atualizado com sucesso!');
+      setPassword('');
+      setConfirmPassword('');
+    } catch (err: unknown) { // Tipar err como unknown
+      console.error("Erro ao atualizar perfil:", err);
+      if (axios.isAxiosError(err)) { // Usar type guard do Axios
+        const axiosError = err as AxiosError<{ message?: string }>; // Especificar tipo do data do erro
+        if (axiosError.response && axiosError.response.data && axiosError.response.data.message) {
+          setError(`Falha ao atualizar perfil: ${axiosError.response.data.message}`);
+        } else {
+          setError('Falha ao atualizar perfil. Verifique os dados e tente novamente.');
+        }
+      } else {
+        setError('Ocorreu um erro inesperado ao atualizar o perfil.');
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  if (isLoading && !name && !email) { // Ajustar condição de loading para ser mais robusta
+    return (
+      <div className="profile-page-container">
+        <p className="loading-message">Carregando perfil...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="profile-page-container">
+      <div className="back-button-wrapper">
+        <Link to="/home" className="back-to-home-button top-left">
+          &larr; Voltar para Home 
+        </Link>
+      </div>
+
       <div className="profile-card">
         <h1 className="profile-title">Editar Perfil</h1>
+        
+        {error && <p className="error-message">{error}</p>}
+        {successMessage && <p className="success-message">{successMessage}</p>}
+        
         <form onSubmit={handleSubmit} className="profile-form">
           <div className="form-group">
             <label htmlFor="name">Nome</label>
@@ -78,6 +173,7 @@ const ProfilePage: React.FC = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
+              disabled={isLoading}
             />
           </div>
 
@@ -89,6 +185,7 @@ const ProfilePage: React.FC = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              disabled={isLoading}
             />
           </div>
 
@@ -99,6 +196,7 @@ const ProfilePage: React.FC = () => {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              disabled={isLoading}
             />
           </div>
 
@@ -109,7 +207,7 @@ const ProfilePage: React.FC = () => {
               id="confirmPassword"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              disabled={!password} // Desabilita se a nova senha não estiver preenchida
+              disabled={!password || isLoading}
             />
           </div>
 
@@ -120,11 +218,12 @@ const ProfilePage: React.FC = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={4}
+              disabled={isLoading}
             />
           </div>
 
-          <button type="submit" className="submit-button">
-            Salvar Alterações
+          <button type="submit" className="submit-button" disabled={isLoading}>
+            {isLoading ? 'Salvando...' : 'Salvar Alterações'}
           </button>
         </form>
       </div>

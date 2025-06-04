@@ -3,13 +3,21 @@
 .profile-page-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start; /* Alinha ao topo para permitir scroll se necessário */
+  align-items: stretch; /* Ou flex-start, stretch permite que o botão defina sua própria largura ou use 100% se necessário */
+  justify-content: flex-start;
   min-height: calc(100vh - 60px); /* Altura da viewport menos o header (ajuste 60px se seu header for diferente) */
   padding: 2rem;
   background-color: var(--dark, #121212);
   color: var(--white, #ffffff);
   box-sizing: border-box;
+}
+
+/* Novo: Wrapper para o botão de voltar para controlar seu alinhamento */
+.back-button-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1.5rem; /* Espaço entre o botão e o card abaixo */
 }
 
 .profile-card {
@@ -19,7 +27,8 @@
   width: 100%;
   max-width: 600px; /* Largura máxima do card */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  margin-top: 1rem; /* Espaço do topo da página */
+  margin-left: auto; /* Para centralizar o card quando o container pai tem align-items: stretch */
+  margin-right: auto; /* Para centralizar o card */
 }
 
 .profile-title {
@@ -101,18 +110,58 @@
   transform: translateY(1px);
 }
 
-/* 
-  Sugestão para adicionar ao seu global.css ou index.css se as variáveis não existirem:
-  :root {
-    --primary: #007bff; 
-    --primary-darker: #0056b3;
-    --primary-rgb: 0, 123, 255; // Para o box-shadow no focus
-    --secondary: #1e1e1e; 
-    --secondary-dark: #333333;
-    --dark: #121212;
-    --dark-light: #2a2a2a;
-    --dark-disabled: #222222;
-    --white: #ffffff;
-    --white-muted: #adb5bd;
-  }
-*/ 
+/* Estilos para o botão de voltar */
+.back-to-home-button.top-left {
+  display: inline-block; /* Mantém as propriedades do botão */
+  text-align: center;
+  background-color: transparent;
+  color: var(--primary, #007bff);
+  border: 2px solid var(--primary, #007bff);
+  padding: 0.7rem 1.2rem; /* Ajustado para melhor aparência no topo */
+  border-radius: 6px;
+  font-size: 0.9rem; /* Ajustado */
+  font-weight: 500; /* Ajustado */
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, transform 0.1s ease;
+  text-decoration: none;
+  /* margin-top: 0.75rem; Removido, o wrapper ou o posicionamento direto cuidarão disso */
+  /* align-self: flex-start; Adicionado para garantir que ele fique à esquerda no container flex */
+}
+
+.back-to-home-button.top-left:hover {
+  background-color: var(--primary, #007bff);
+  color: var(--white, #ffffff);
+}
+
+.back-to-home-button.top-left:active {
+  transform: translateY(1px);
+  background-color: var(--primary-darker, #0056b3);
+  border-color: var(--primary-darker, #0056b3);
+}
+
+/* Estilos para mensagens de feedback */
+.loading-message,
+.error-message,
+.success-message {
+  text-align: center;
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.loading-message {
+  color: var(--white-muted, #adb5bd);
+}
+
+.error-message {
+  background-color: rgba(220, 53, 69, 0.1); /* Cor vermelha com opacidade */
+  color: #dc3545; /* Cor vermelha */
+  border: 1px solid #dc3545;
+}
+
+.success-message {
+  background-color: rgba(25, 135, 84, 0.1); /* Cor verde com opacidade */
+  color: #198754; /* Cor verde */
+  border: 1px solid #198754;
+} 
