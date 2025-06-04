@@ -7,6 +7,8 @@ import Projeto_BRASFI.api_brasfi_backend.domain.member.community.CommunityMember
 import Projeto_BRASFI.api_brasfi_backend.domain.member.community.RoleRequest;
 import Projeto_BRASFI.api_brasfi_backend.domain.member.follow.MemberFollowService;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +17,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/member")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class MemberController {
 
+    private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
     private final MemberService service;
     private final MemberBlockService memberBlockService;
     private final MemberFollowService memberFollowService;
@@ -30,11 +34,18 @@ public class MemberController {
         this.communityMemberService = communityMemberService;
     }
 
-
     @PostMapping
     public ResponseEntity<Member> create(@RequestBody @Valid MemberDto dto) {
-        Member member = service.create(dto);
-        return ResponseEntity.created(URI.create("/member/" + member.getId())).body(member);
+        logger.info("Recebida requisição POST para /member");
+        logger.debug("Dados recebidos: {}", dto);
+        try {
+            Member member = service.create(dto);
+            logger.info("Membro criado com sucesso. ID: {}", member.getId());
+            return ResponseEntity.created(URI.create("/member/" + member.getId())).body(member);
+        } catch (Exception e) {
+            logger.error("Erro ao criar membro: {}", e.getMessage(), e);
+            throw e;
+        }
     }
 
     @GetMapping

@@ -1,0 +1,6 @@
+npm run docker:dev - Inicia todos os containers
+npm run docker:logs - Mostra os logs do frontend
+npm run docker:restart - Reinicia apenas o frontend
+npm run docker:rebuild - Reconstrói e reinicia o frontend (útil quando adicionar novas dependências)
+docker-compose down - Derruba todos os containers
+docker-compose up -d - Sobe todos os containers

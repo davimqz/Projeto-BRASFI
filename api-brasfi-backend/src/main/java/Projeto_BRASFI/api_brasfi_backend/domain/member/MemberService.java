@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MemberService {
@@ -12,6 +13,14 @@ public class MemberService {
 
     public MemberService(MemberRepository repository) {
         this.repository = repository;
+    }
+
+    public Member authenticate(String username, String password) {
+        Optional<Member> member = repository.findByUsername(username);
+        if (member.isPresent() && member.get().getPasswordHash().equals(password)) {
+            return member.get();
+        }
+        throw new RuntimeException("Credenciais inválidas");
     }
 
     public Member create(MemberDto dto) {
