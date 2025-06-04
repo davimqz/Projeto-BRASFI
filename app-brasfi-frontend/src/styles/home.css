@@ -1,72 +1,118 @@
 /* styles/home.css */
 
-/* Estilos específicos da página Home */
-.home-container {
-  display: flex;
-  width: 100vw;
-  height: 100vh; 
-  background-color: rgb(50, 128, 128); 
-}
+/* Estilos para Home.tsx */
 
-/* Barra lateral */
-.sidebar {
-  width: 20%;
-  height: 100vh;
-  background-color: #1a1a1a;
-  color: white;
+/* Estilos para o novo header em Home.tsx */
+.top-header {
   display: flex;
-  flex-direction: column;
-  padding: 16px; /* Adiciona espaço interno consistente */
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.5rem; /* Ajuste o padding conforme necessário */
+  background-color: var(--secondary, #2c3e50); /* Cor de fallback se a variável não estiver definida */
+  color: var(--white, #ffffff);
+  width: 100%;
   box-sizing: border-box;
+  position: sticky; /* Para manter o header no topo ao rolar */
+  top: 0;
+  z-index: 1000; /* Para garantir que fique acima de outros conteúdos */
 }
 
-/* Cabeçalho com logo e nome */
-.logo-container {
+.logo-container-header {
   display: flex;
   align-items: center;
-  margin-bottom: 24px; /* Espaço entre logo e lista */
 }
 
-/* Imagem da logo */
-.logo {
-  width: 7vw;
-  height: auto; 
-  object-fit: contain;
-  margin-right: 12px; /* Aproxima o nome da logo */
+.logo-header {
+  height: 40px; /* Ajuste o tamanho conforme necessário */
+  margin-right: 0.75rem;
 }
 
-/* Nome da empresa */
-.logo-name {
-  font-size: 2rem;
+.logo-name-header {
+  font-size: 1.5rem; /* Ajuste o tamanho conforme necessário */
   font-weight: bold;
-  white-space: nowrap;
+  color: var(--primary, #3498db); /* Cor de fallback */
 }
 
-/* Lista de comunidades */
+.avatar-link {
+  text-decoration: none;
+}
+
+.avatar-placeholder {
+  width: 40px; /* Tamanho do avatar */
+  height: 40px; /* Tamanho do avatar */
+  border-radius: 50%; /* Para forma circular */
+  background-color: var(--primary, #3498db); /* Cor de fallback */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--white, #ffffff);
+  font-weight: bold;
+  cursor: pointer;
+  /* border: 2px solid var(--white); */ /* Opcional: borda branca */
+}
+
+/* Ajustes para o home-container e main-content-area */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--dark, #1a1a1a); /* Cor de fallback */
+}
+
+.main-content-area {
+  display: flex;
+  flex-grow: 1; /* Para ocupar o espaço restante abaixo do header */
+  /* Se o header for sticky, pode ser necessário um padding-top aqui igual à altura do header */
+  /* padding-top: 60px; */ /* Exemplo, ajuste conforme a altura real do seu .top-header */
+}
+
+.sidebar {
+  width: 250px;
+  background-color: var(--secondary-light, #333333); /* Cor de fallback */
+  padding: 1rem;
+  color: var(--white, #ffffff);
+  height: calc(100vh - 60px); /* Exemplo: altura total menos altura do header. Ajuste 60px se necessário */
+  overflow-y: auto; /* Para scroll na sidebar se o conteúdo for grande */
+}
+
 .community-list {
-  list-style-type: none;
+  list-style: none;
   padding: 0;
   margin: 0;
-  font-size: 1.1rem;
 }
 
 .community-item {
-  margin-bottom: 12px;
+  padding: 0.75rem 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .community-item:hover {
-  color: #d1d5db;
+  background-color: var(--primary-darker, #2980b9); /* Defina --primary-darker ou use uma cor escura */
 }
 
-/* Conteúdo principal */
 .content {
-  padding: 24px; 
+  flex-grow: 1;
+  padding: 1.5rem;
+  color: var(--white, #ffffff);
+  /* overflow-y: auto; */ /* Se o conteúdo principal também precisar de scroll */
 }
 
-/* Título */
-.header {
-  font-size: 2.5rem; 
-  font-weight: bold;
-  margin-bottom: 16px;
+.content .header { 
+  color: var(--white, #ffffff);
+  margin-top: 0; /* Reset margin se necessário */
 }
+
+/* Adicione estas variáveis ao seu global.css ou index.css se ainda não estiverem lá */
+/* 
+:root {
+  --primary: #3498db;  // Azul como exemplo
+  --secondary: #2c3e50; // Azul escuro/cinza como exemplo
+  --dark: #1a1a1a;     // Cinza bem escuro como exemplo
+  --white: #ffffff;
+  --secondary-light: #333333; // Cinza para sidebar
+  --primary-darker: #2980b9; // Azul mais escuro para hover
+}
+*/
