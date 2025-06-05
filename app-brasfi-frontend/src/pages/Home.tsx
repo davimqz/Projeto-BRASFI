@@ -7,12 +7,14 @@ import '../styles/home.css';   // Importando estilos específicos da Home
 import { Link, useLocation, useNavigate } from 'react-router-dom'; // Importar Link e useLocation/useNavigate
 import type { Post, Page as ApiPage, Community } from '../types/api'; // Importar tipos
 import PostItem from '../components/PostItem'; // Importar PostItem
+import ConfirmationModal from '../components/ConfirmationModal'; // Importar o Modal
 
 const API_URL = '/api'; // Consistente com ProfilePage
 const POSTS_PER_PAGE = 10; // Definir quantos posts carregar por vez
 
 export default function Home() {
   const [userName, setUserName] = useState<string | null>(null);
+  const [currentUserId, setCurrentUserId] = useState<number | null>(null);
   const location = useLocation(); // Hook para acessar location.state
   const navigate = useNavigate(); // Hook para navegação programática
 
@@ -28,6 +30,12 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [hasMorePosts, setHasMorePosts] = useState<boolean>(true);
   const [feedError, setFeedError] = useState<string | null>(null);
+
+  // Estados para o modal de exclusão
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+  const [postIdToDelete, setPostIdToDelete] = useState<number | null>(null);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [isDeletingPost, setIsDeletingPost] = useState<boolean>(false);
 
   // Ref para o observer da rolagem infinita
   const observer = useRef<IntersectionObserver | null>(null);
@@ -45,13 +53,16 @@ export default function Home() {
   }, [isLoading, hasMorePosts, selectedCommunityId, currentPage]);
 
   useEffect(() => {
-    const fetchUserName = async () => {
-      const token = localStorage.getItem('token');
-      const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
+    const userIdStr = localStorage.getItem('userId');
+    if (userIdStr) {
+      setCurrentUserId(parseInt(userIdStr, 10));
+    }
 
-      if (token && userId) {
+    const fetchUserName = async () => {
+      if (token && userIdStr) {
         try {
-          const response = await axios.get(`${API_URL}/member/${userId}`, {
+          const response = await axios.get(`${API_URL}/member/${userIdStr}`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           if (response.data && response.data.name) {
@@ -69,16 +80,20 @@ export default function Home() {
     const fetchCommunities = async () => {
       setIsLoadingCommunities(true);
       setCommunitiesError(null);
-      const token = localStorage.getItem('token');
-      try {
-        const response = await axios.get<Community[]>(`${API_URL}/community`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setCommunities(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar comunidades:", error);
-        setCommunitiesError("Falha ao carregar a lista de comunidades. Tente recarregar a página.");
-      } finally {
+      if (token) {
+        try {
+          const response = await axios.get<Community[]>(`${API_URL}/community`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          setCommunities(response.data);
+        } catch (error) {
+          console.error("Erro ao buscar comunidades:", error);
+          setCommunitiesError("Falha ao carregar a lista de comunidades. Tente recarregar a página.");
+        } finally {
+          setIsLoadingCommunities(false);
+        }
+      } else {
+        setCommunitiesError("Usuário não autenticado.");
         setIsLoadingCommunities(false);
       }
     };
@@ -169,6 +184,41 @@ export default function Home() {
     }
   };
 
+  const handleRequestDelete = (postId: number) => {
+    setPostIdToDelete(postId);
+    setDeleteError(null); // Limpa erros anteriores
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleCancelDelete = () => {
+    setIsDeleteModalOpen(false);
+    setPostIdToDelete(null);
+    setDeleteError(null);
+  };
+
+  const handleConfirmDeletePost = async () => {
+    if (!postIdToDelete) return;
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setDeleteError("Erro de autenticação. Faça login novamente.");
+      return;
+    }
+    setIsDeletingPost(true);
+    setDeleteError(null);
+    try {
+      await axios.delete(`${API_URL}/post/${postIdToDelete}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setPosts(prevPosts => prevPosts.filter(post => post.id !== postIdToDelete));
+      handleCancelDelete(); // Fecha o modal e reseta estados
+    } catch (error) {
+      console.error("Erro ao deletar post:", error);
+      setDeleteError("Falha ao excluir a publicação. Tente novamente.");
+    } finally {
+      setIsDeletingPost(false);
+    }
+  };
+
   return (
     <div className="home-container">
       {/* Header Superior */}
@@ -221,7 +271,12 @@ export default function Home() {
               </div>
               <div className="feed-container">
                 {posts.map(post => (
-                  <PostItem key={post.id} post={post} />
+                  <PostItem 
+                    key={post.id} 
+                    post={post} 
+                    currentUserId={currentUserId} 
+                    onRequestDelete={handleRequestDelete} 
+                  />
                 ))}
                 
                 {hasMorePosts && !isLoading && (
@@ -244,6 +299,17 @@ export default function Home() {
           )}
         </div>
       </div>
+      <ConfirmationModal
+        isOpen={isDeleteModalOpen}
+        title="Confirmar Exclusão"
+        message={`Tem certeza que deseja excluir esta publicação? ${deleteError ? 
+          '<br/><strong style="color: red;">' + deleteError + '</strong>' : ''}`}
+        confirmText="Sim, Excluir"
+        cancelText="Não"
+        onConfirm={handleConfirmDeletePost}
+        onCancel={handleCancelDelete}
+        isLoading={isDeletingPost}
+      />
     </div>
   );
 }
