@@ -124,7 +124,7 @@
   text-align: left;
   background: none;
   border: none;
-  color: darkgoldenrod; /* Alterado para amarelo escuro */
+  color: var(--primary, #00796b); /* Alterado para a cor primária (verde) */
   cursor: pointer;
   font-size: 0.9em;
 }

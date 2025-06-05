@@ -40,6 +40,10 @@ export default function Home() {
   // Estado para erro geral de edição de post (opcional, se quisermos um feedback mais centralizado)
   const [editPostError, setEditPostError] = useState<string | null>(null);
 
+  // Estado para o menu de configurações do usuário
+  const [isSettingsMenuOpen, setIsSettingsMenuOpen] = useState<boolean>(false);
+  const settingsMenuRef = useRef<HTMLDivElement>(null); // Ref para o menu dropdown
+
   // Ref para o observer da rolagem infinita
   const observer = useRef<IntersectionObserver | null>(null);
   const loadMoreRef = useCallback((node: HTMLDivElement | null) => {
@@ -274,6 +278,46 @@ export default function Home() {
     }
   };
 
+  const toggleSettingsMenu = () => {
+    setIsSettingsMenuOpen(prev => !prev);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userName'); // Limpar nome do usuário também se estiver lá
+    setUserName(null);
+    setCurrentUserId(null);
+    setPosts([]); // Limpar posts
+    setCommunities([]); // Limpar comunidades
+    setSelectedCommunityId(null);
+    setIsSettingsMenuOpen(false); // Fechar o menu
+    navigate('/login');
+  };
+
+  // useEffect para fechar o menu de configurações se clicar fora dele
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isSettingsMenuOpen && settingsMenuRef.current && 
+          !settingsMenuRef.current.contains(event.target as Node)) {
+        // Se o clique não foi na área que abre o menu (avatar + ícone de settings)
+        // então feche o menu.
+        const avatarAndSettingsClickableArea = (event.target as HTMLElement).closest('.avatar-settings-clickable-area');
+        if (!avatarAndSettingsClickableArea) {
+            setIsSettingsMenuOpen(false);
+        }
+      }
+    };
+
+    if (isSettingsMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isSettingsMenuOpen]);
+
   return (
     <div className="home-container">
       {/* Header Superior */}
@@ -282,11 +326,31 @@ export default function Home() {
           <img src={logo} alt="Logo Brasfi" className="logo-header" />
           <h2 className="logo-name-header">Brasfi</h2>
         </div>
-        <div className="user-greeting-avatar-container"> {/* Novo container para agrupar saudação e avatar */}
+        <div className="user-actions-area">
           {userName && <span className="user-greeting">Olá, {userName}</span>}
-          <Link to="/profile" className="avatar-link">
-            <img src={profilePhoto} alt="Avatar do usuário" className="avatar-placeholder" />
-          </Link>
+          {/* Novo container para avatar e settings que será clicável */}
+          <div className="avatar-settings-clickable-area" onClick={toggleSettingsMenu} style={{ cursor: 'pointer' }}>
+            <div className="avatar-display-container"> 
+              <img src={profilePhoto} alt="Avatar do usuário" className="avatar-placeholder" />
+            </div>
+            <div className="settings-icon-container">
+              <button className="settings-button" aria-label="Configurações">
+                ⋮
+              </button>
+            </div>
+          </div>
+          {/* Menu dropdown continua posicionado em relação a user-actions-area ou um container pai específico se necessário */}
+          {/* Mas a ref para fechar ao clicar fora está no próprio dropdown */}
+          {isSettingsMenuOpen && (
+            <div className="settings-dropdown-menu" ref={settingsMenuRef} onClick={(e) => e.stopPropagation()}>
+              <Link to="/profile" className="settings-dropdown-item" onClick={() => setIsSettingsMenuOpen(false)}>
+                Editar Perfil
+              </Link>
+              <button onClick={handleLogout} className="settings-dropdown-item logout-button">
+                Sair
+              </button>
+            </div>
+          )}
         </div>
       </header>
 
