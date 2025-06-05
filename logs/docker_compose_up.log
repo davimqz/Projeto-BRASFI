@@ -1,0 +1,121 @@
+time="2025-06-05T07:48:38-03:00" level=warning msg="/home/fernando/Desktop/Developer/cesar/projetos/periodo_3/projetos/Projeto-BRASFI/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+Compose can now delegate builds to bake for better performance.
+ To do so, set COMPOSE_BAKE=true.
+#0 building with "default" instance using docker driver
+
+#1 [frontend internal] load build definition from Dockerfile
+#1 transferring dockerfile: 179B done
+#1 DONE 0.0s
+
+#2 [backend internal] load build definition from Dockerfile
+#2 transferring dockerfile: 288B 0.0s done
+#2 DONE 0.1s
+
+#3 [backend internal] load metadata for docker.io/library/maven:3.8.4-openjdk-17-slim
+#3 ...
+
+#4 [backend internal] load metadata for docker.io/library/openjdk:17-slim
+#4 DONE 0.5s
+
+#3 [backend internal] load metadata for docker.io/library/maven:3.8.4-openjdk-17-slim
+#3 DONE 0.5s
+
+#5 [backend internal] load .dockerignore
+#5 transferring context: 2B done
+#5 DONE 0.0s
+
+#6 [backend stage-1 1/3] FROM docker.io/library/openjdk:17-slim@sha256:aaa3b3cb27e3e520b8f116863d0580c438ed55ecfa0bc126b41f68c3f62f9774
+#6 DONE 0.0s
+
+#7 [backend build 1/5] FROM docker.io/library/maven:3.8.4-openjdk-17-slim@sha256:150deb7b386bad685dcf0c781b9b9023a25896087b637c069a50c8019cab86f8
+#7 DONE 0.0s
+
+#8 [backend internal] load build context
+#8 transferring context: 10.40kB 0.0s done
+#8 DONE 0.1s
+
+#9 [backend build 2/5] WORKDIR /app
+#9 CACHED
+
+#10 [backend build 5/5] RUN mvn clean package -DskipTests
+#10 CACHED
+
+#11 [backend build 4/5] COPY src ./src
+#11 CACHED
+
+#12 [backend stage-1 2/3] WORKDIR /app
+#12 CACHED
+
+#13 [backend build 3/5] COPY pom.xml .
+#13 CACHED
+
+#14 [backend stage-1 3/3] COPY --from=build /app/target/*.jar app.jar
+#14 CACHED
+
+#15 [backend] exporting to image
+#15 exporting layers done
+#15 writing image sha256:0f72e24d18aa51dfd02da0d88630c5241db59de80f2bcc90a033553b6f04cec4 done
+#15 naming to docker.io/library/projeto-brasfi-backend done
+#15 DONE 0.0s
+
+#16 [backend] resolving provenance for metadata file
+#16 DONE 0.0s
+
+#17 [frontend internal] load metadata for docker.io/library/node:18-alpine
+#17 DONE 1.1s
+
+#18 [frontend internal] load .dockerignore
+#18 transferring context: 2B done
+#18 DONE 0.0s
+
+#19 [frontend 1/5] FROM docker.io/library/node:18-alpine@sha256:8d6421d663b4c28fd3ebc498332f249011d118945588d0a35cb9bc4b8ca09d9e
+#19 DONE 0.0s
+
+#20 [frontend internal] load build context
+#20 transferring context: 630.46kB 1.2s done
+#20 DONE 1.3s
+
+#21 [frontend 2/5] WORKDIR /app
+#21 CACHED
+
+#22 [frontend 4/5] RUN npm install
+#22 CACHED
+
+#23 [frontend 3/5] COPY package*.json ./
+#23 CACHED
+
+#24 [frontend 5/5] COPY . .
+#24 CACHED
+
+#25 [frontend] exporting to image
+#25 exporting layers done
+#25 writing image sha256:83f871c66a9f5770447663912db75a1f933bb482b0d393260f0debb3c835c80b done
+#25 naming to docker.io/library/projeto-brasfi-frontend done
+#25 DONE 0.0s
+
+#26 [frontend] resolving provenance for metadata file
+#26 DONE 0.0s
+ backend  Built
+ frontend  Built
+ Network projeto-brasfi_app-network  Creating
+ Network projeto-brasfi_app-network  Created
+ Container projeto-brasfi-db-1  Creating
+ Container projeto-brasfi-frontend-1  Creating
+ Container projeto-brasfi-db-1  Created
+ Container projeto-brasfi-backend-1  Creating
+ Container projeto-brasfi-backend-1  Created
+ Container projeto-brasfi-frontend-1  Created
+ Container projeto-brasfi-nginx-1  Creating
+ Container projeto-brasfi-nginx-1  Created
+ Container projeto-brasfi-db-1  Starting
+ Container projeto-brasfi-frontend-1  Starting
+ Container projeto-brasfi-frontend-1  Started
+ Container projeto-brasfi-frontend-1  Waiting
+ Container projeto-brasfi-db-1  Started
+ Container projeto-brasfi-db-1  Waiting
+ Container projeto-brasfi-frontend-1  Healthy
+ Container projeto-brasfi-nginx-1  Starting
+ Container projeto-brasfi-db-1  Healthy
+ Container projeto-brasfi-backend-1  Starting
+ Container projeto-brasfi-backend-1  Started
+ Container projeto-brasfi-nginx-1  Started

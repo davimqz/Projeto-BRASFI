@@ -6,28 +6,10 @@ import '../../styles/profile.css'; // Criaremos este arquivo para os estilos da 
 
 const API_URL = '/api'; // ATUALIZADO: Defina a URL base da sua API (usando o proxy)
 
-// Define um estilo básico para o container da página de perfil
-const profilePageStyle: React.CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  minHeight: 'calc(100vh - 60px)', // Ajustar '60px' se a altura do seu header for diferente
-  padding: '2rem',
-  backgroundColor: 'var(--dark, #1a1a1a)', // Usando variável de cor com fallback
-  color: 'var(--white, #ffffff)', // Usando variável de cor com fallback
-};
-
-const headingStyle: React.CSSProperties = {
-  fontSize: '2rem',
-  marginBottom: '1rem',
-  color: 'var(--primary, #3498db)', // Usando variável de cor com fallback
-};
-
-const placeholderTextStyle: React.CSSProperties = {
-  fontSize: '1.2rem',
-  textAlign: 'center',
-};
+// Estilos removidos pois não estavam sendo utilizados e causavam erros de linter.
+// const profilePageStyle: React.CSSProperties = { ... };
+// const headingStyle: React.CSSProperties = { ... };
+// const placeholderTextStyle: React.CSSProperties = { ... };
 
 const ProfilePage: React.FC = () => {
   const [name, setName] = useState('');
@@ -39,21 +21,28 @@ const ProfilePage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  const getAuthToken = () => localStorage.getItem('token'); // ATUALIZADO: chave do token
+  const getAuthToken = () => localStorage.getItem('token');
   const getUserId = () => localStorage.getItem('userId');
 
   // Carregar dados do usuário ao montar o componente
   useEffect(() => {
-    const fetchUserData = async () => {
-      const token = getAuthToken();
-      const userId = getUserId();
+    const token = getAuthToken();
+    const userId = getUserId();
+    console.log("ProfilePage useEffect: token from localStorage:", token);
+    console.log("ProfilePage useEffect: userId from localStorage:", userId);
 
-      if (!token || !userId) {
-        setError('Usuário não autenticado ou ID não encontrado.');
-        setIsLoading(false);
-        return;
+    if (!token || !userId || token === "undefined") {
+      let authError = "Usuário não autenticado ou ID não encontrado.";
+      if (token === "undefined") {
+        authError += " (Problema: token é a string 'undefined')";
+        console.error("ProfilePage useEffect: Token é a string 'undefined'. Verifique a resposta da API de login.");
       }
+      setError(authError);
+      setIsLoading(false);
+      return;
+    }
 
+    const fetchUserData = async () => {
       try {
         setIsLoading(true);
         setSuccessMessage(null);
@@ -65,10 +54,8 @@ const ProfilePage: React.FC = () => {
         setName(userData.name || '');
         setEmail(userData.email || '');
         setDescription(userData.description || '');
-      } catch (err: unknown) { // Tipar err como unknown
+      } catch (err: unknown) {
         console.error("Erro ao buscar dados do usuário:", err);
-        // Pode-se adicionar uma verificação mais específica do erro se necessário
-        // if (err instanceof AxiosError) { ... }
         setError('Falha ao carregar dados do perfil. Tente novamente mais tarde.');
       } finally {
         setIsLoading(false);
@@ -83,25 +70,30 @@ const ProfilePage: React.FC = () => {
     setError(null);
     setSuccessMessage(null);
 
-    if (password && password !== confirmPassword) {
-      setError('As senhas não coincidem!');
-      return;
-    }
-
     const token = getAuthToken();
     const userId = getUserId();
 
-    if (!token || !userId) {
-      setError('Usuário não autenticado. Não é possível salvar.');
+    console.log("ProfilePage handleSubmit: token from localStorage:", token);
+    console.log("ProfilePage handleSubmit: userId from localStorage:", userId);
+
+    if (!token || !userId || token === "undefined") {
+      let authError = "Usuário não autenticado. Não é possível salvar.";
+      if (token === "undefined") {
+        authError += " (Problema: token é a string 'undefined')";
+        console.error("ProfilePage handleSubmit: Token é a string 'undefined'. Verifique a resposta da API de login e como o token é setado.");
+      }
+      if (!userId) {
+        console.error("ProfilePage handleSubmit: userId não encontrado no localStorage.");
+      }
+      setError(authError);
       return;
     }
 
-    // Definir um tipo para updatedData para maior clareza
     interface UpdatePayload {
       name: string;
       email: string;
       description: string;
-      password?: string;
+      newPassword?: string;
     }
 
     const updatedData: UpdatePayload = {
@@ -110,28 +102,41 @@ const ProfilePage: React.FC = () => {
       description,
     };
 
-    if (password) {
-      updatedData.password = password;
+    if (password && password !== confirmPassword) {
+      setError('As senhas não coincidem!');
+      return;
     }
+    
+    if (password) {
+        updatedData.newPassword = password;
+    }
+
+    console.log("Enviando para PUT /member/" + userId + ":", updatedData);
 
     try {
       setIsLoading(true);
-      // A resposta do PUT pode não ser usada diretamente, mas podemos logá-la ou verificar o status
-      /* const response = */ await axios.put(`${API_URL}/member/${userId}`, updatedData, {
-        headers: { Authorization: `Bearer ${token}`,
-                  'Content-Type': 'application/json' },
+      await axios.put(`${API_URL}/member/${userId}`, updatedData, {
+        headers: { 
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json' 
+        },
       });
       
       setSuccessMessage('Perfil atualizado com sucesso!');
       setPassword('');
       setConfirmPassword('');
-    } catch (err: unknown) { // Tipar err como unknown
+    } catch (err: unknown) {
       console.error("Erro ao atualizar perfil:", err);
-      if (axios.isAxiosError(err)) { // Usar type guard do Axios
-        const axiosError = err as AxiosError<{ message?: string }>; // Especificar tipo do data do erro
+      if (axios.isAxiosError(err)) {
+        const axiosError = err as AxiosError<{ message?: string; error?: string; path?: string; status?: number; timestamp?: string }>;
+        console.error("Detalhes do erro Axios:", axiosError.response?.data);
         if (axiosError.response && axiosError.response.data && axiosError.response.data.message) {
           setError(`Falha ao atualizar perfil: ${axiosError.response.data.message}`);
-        } else {
+        } else if (axiosError.response && axiosError.response.data && typeof axiosError.response.data.error === 'string'){
+          setError(`Falha ao atualizar perfil: ${axiosError.response.data.error} (status: ${axiosError.response.status})`);
+        } else if (axiosError.response && axiosError.response.status === 401) {
+          setError('Sua sessão pode ter expirado ou o token é inválido. Por favor, faça login novamente.');
+        }else {
           setError('Falha ao atualizar perfil. Verifique os dados e tente novamente.');
         }
       } else {
@@ -142,7 +147,7 @@ const ProfilePage: React.FC = () => {
     }
   };
 
-  if (isLoading && !name && !email) { // Ajustar condição de loading para ser mais robusta
+  if (isLoading && (!name && !email && !description && !error)) { 
     return (
       <div className="profile-page-container">
         <p className="loading-message">Carregando perfil...</p>
@@ -195,7 +200,7 @@ const ProfilePage: React.FC = () => {
               type="password"
               id="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {setPassword(e.target.value); setError(null); setSuccessMessage(null);}}
               disabled={isLoading}
             />
           </div>
@@ -206,7 +211,7 @@ const ProfilePage: React.FC = () => {
               type="password"
               id="confirmPassword"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={(e) => {setConfirmPassword(e.target.value); setError(null); setSuccessMessage(null);}}
               disabled={!password || isLoading}
             />
           </div>

@@ -16,9 +16,11 @@ import java.util.Map;
 public class AuthController {
 
     private final MemberService memberService;
+    private final TokenService tokenService;
 
-    public AuthController(MemberService memberService) {
+    public AuthController(MemberService memberService, TokenService tokenService) {
         this.memberService = memberService;
+        this.tokenService = tokenService;
     }
 
     @PostMapping("/login")
@@ -28,15 +30,22 @@ public class AuthController {
 
         try {
             Member member = memberService.authenticate(username, password);
-            Map<String, Object> response = new HashMap<>();
-            response.put("id", member.getId());
-            response.put("name", member.getName());
-            response.put("username", member.getUsername());
-            response.put("email", member.getEmail());
-            return ResponseEntity.ok(response);
+            
+            String jwtToken = tokenService.generateToken(member);
+
+            LoginResponseDto loginResponse = new LoginResponseDto(
+                member.getId(),
+                member.getName(),
+                member.getUsername(),
+                member.getEmail(),
+                member.getDescription(),
+                jwtToken
+            );
+
+            return ResponseEntity.ok(loginResponse);
         } catch (Exception e) {
             Map<String, String> error = new HashMap<>();
-            error.put("message", "Credenciais inválidas");
+            error.put("message", "Credenciais inválidas ou erro no login: " + e.getMessage());
             return ResponseEntity.badRequest().body(error);
         }
     }
