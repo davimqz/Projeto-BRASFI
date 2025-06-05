@@ -1,16 +1,16 @@
-time="2025-06-05T07:48:58-03:00" level=warning msg="/home/fernando/Desktop/Developer/cesar/projetos/periodo_3/projetos/Projeto-BRASFI/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
-db-1  | 2025-06-05 10:48:51+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.42-1.el9 started.
-db-1  | 2025-06-05 10:48:52+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
-db-1  | 2025-06-05 10:48:52+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.42-1.el9 started.
+time="2025-06-05T08:35:56-03:00" level=warning msg="/home/fernando/Desktop/Developer/cesar/projetos/periodo_3/projetos/Projeto-BRASFI/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+db-1  | 2025-06-05 11:35:50+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.42-1.el9 started.
+db-1  | 2025-06-05 11:35:50+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+db-1  | 2025-06-05 11:35:50+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.42-1.el9 started.
 db-1  | '/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
-db-1  | 2025-06-05T10:48:53.328924Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
-db-1  | 2025-06-05T10:48:53.331543Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
-db-1  | 2025-06-05T10:48:53.332342Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.42) starting as process 1
-db-1  | 2025-06-05T10:48:53.363640Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
-db-1  | 2025-06-05T10:48:54.274822Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
-db-1  | 2025-06-05T10:48:54.887617Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
-db-1  | 2025-06-05T10:48:54.888454Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
-db-1  | 2025-06-05T10:48:54.905842Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
-db-1  | 2025-06-05T10:48:55.001679Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.42'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
-db-1  | 2025-06-05T10:48:55.002201Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
-db-1  | 2025-06-05T10:48:56.428587Z 8 [Warning] [MY-013360] [Server] Plugin mysql_native_password reported: ''mysql_native_password' is deprecated and will be removed in a future release. Please use caching_sha2_password instead'
+db-1  | 2025-06-05T11:35:50.761081Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+db-1  | 2025-06-05T11:35:50.762969Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+db-1  | 2025-06-05T11:35:50.763454Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.42) starting as process 1
+db-1  | 2025-06-05T11:35:50.793748Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+db-1  | 2025-06-05T11:35:51.367471Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+db-1  | 2025-06-05T11:35:51.902148Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+db-1  | 2025-06-05T11:35:51.902181Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+db-1  | 2025-06-05T11:35:51.908310Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+db-1  | 2025-06-05T11:35:51.930567Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+db-1  | 2025-06-05T11:35:51.930618Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.42'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
+db-1  | 2025-06-05T11:35:55.116760Z 8 [Warning] [MY-013360] [Server] Plugin mysql_native_password reported: ''mysql_native_password' is deprecated and will be removed in a future release. Please use caching_sha2_password instead'

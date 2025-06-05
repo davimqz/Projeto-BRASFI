@@ -18,4 +18,7 @@ public class PostDto {
 
     @NotNull
     private Long authorId;
+
+    @NotNull
+    private Long communityId;
 }

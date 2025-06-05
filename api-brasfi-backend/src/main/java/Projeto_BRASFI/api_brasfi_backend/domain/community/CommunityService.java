@@ -22,10 +22,14 @@ public class CommunityService {
     }
 
     public Community create(CommunityDto dto) {
-        Chat chat = chatRepository.findById(dto.chatId())
-                .orElseThrow(() -> new IllegalArgumentException("Chat not found"));
+        Chat chat = null;
+        if (dto.chatId() != null) {
+            chat = chatRepository.findById(dto.chatId())
+                    .orElseThrow(() -> new IllegalArgumentException("Chat not found with ID: " + dto.chatId()));
+        }
+
         Member creator = memberRepository.findById(dto.creatorId())
-                .orElseThrow(() -> new IllegalArgumentException("Creator member not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Creator member not found with ID: " + dto.creatorId()));
 
         Community community = new Community(null, dto.name(), dto.description(), chat, creator);
         return communityRepository.save(community);
@@ -42,10 +46,15 @@ public class CommunityService {
 
     public Community update(Long id, CommunityDto dto) {
         Community community = findById(id);
-        Chat chat = chatRepository.findById(dto.chatId())
-                .orElseThrow(() -> new IllegalArgumentException("Chat not found"));
+
+        Chat chat = null;
+        if (dto.chatId() != null) {
+            chat = chatRepository.findById(dto.chatId())
+                    .orElseThrow(() -> new IllegalArgumentException("Chat not found with ID: " + dto.chatId()));
+        }
+        
         Member creator = memberRepository.findById(dto.creatorId())
-                .orElseThrow(() -> new IllegalArgumentException("Creator member not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Creator member not found with ID: " + dto.creatorId()));
 
         community.setName(dto.name());
         community.setDescription(dto.description());

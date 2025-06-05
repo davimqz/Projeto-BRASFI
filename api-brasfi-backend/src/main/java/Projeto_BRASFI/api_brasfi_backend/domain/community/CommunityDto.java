@@ -6,6 +6,6 @@ import jakarta.validation.constraints.NotNull;
 public record CommunityDto(
         @NotBlank String name,
         String description,
-        @NotNull Long chatId,
+        Long chatId,
         @NotNull Long creatorId
 ) {}

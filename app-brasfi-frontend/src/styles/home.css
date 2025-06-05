@@ -75,17 +75,17 @@
 .main-content-area {
   display: flex;
   flex-grow: 1; /* Para ocupar o espaço restante abaixo do header */
-  /* Se o header for sticky, pode ser necessário um padding-top aqui igual à altura do header */
-  /* padding-top: 60px; */ /* Exemplo, ajuste conforme a altura real do seu .top-header */
+  overflow: hidden; /* Para evitar scroll duplo se a sidebar ou content tiverem seu próprio scroll */
 }
 
 .sidebar {
   width: 250px;
-  background-color: var(--secondary-light, #333333); /* Cor de fallback */
-  padding: 1rem;
-  color: var(--white, #ffffff);
-  height: calc(100vh - 60px); /* Exemplo: altura total menos altura do header. Ajuste 60px se necessário */
-  overflow-y: auto; /* Para scroll na sidebar se o conteúdo for grande */
+  background-color: var(--white, #fff);
+  padding: 20px;
+  border-right: 1px solid var(--secondary-light, #e0e0e0);
+  overflow-y: auto; /* Scroll para a sidebar se a lista de comunidades for grande */
+  /* Transições suaves para interações futuras */
+  transition: width 0.3s ease;
 }
 
 .community-list {
@@ -95,27 +95,73 @@
 }
 
 .community-item {
-  padding: 0.75rem 0.5rem;
-  margin-bottom: 0.5rem;
-  border-radius: 4px;
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  color: var(--dark-gray, #333);
+  font-weight: 500;
 }
 
 .community-item:hover {
-  background-color: var(--primary-darker, #2980b9); /* Defina --primary-darker ou use uma cor escura */
+  background-color: var(--secondary-lighter, #f0f0f0); /* Um tom bem claro da secundária ou cinza */
+  color: var(--primary, #00796b);
+}
+
+.community-item.active {
+  background-color: var(--primary, #00796b);
+  color: var(--white, #fff);
+  font-weight: bold;
+}
+
+.community-item.active:hover {
+  background-color: var(--primary-dark, #00695c); /* Um tom um pouco mais escuro da primária no hover do ativo */
 }
 
 .content {
-  flex-grow: 1;
-  padding: 1.5rem;
-  color: var(--white, #ffffff);
-  /* overflow-y: auto; */ /* Se o conteúdo principal também precisar de scroll */
+  flex-grow: 1; /* Ocupa o restante do espaço */
+  padding: 20px;
+  overflow-y: auto; /* Scroll para o conteúdo do feed */
+  background-color: var(--background-content, #f4f6f8); /* Uma cor de fundo suave para a área de conteúdo */
 }
 
-.content .header { 
-  color: var(--white, #ffffff);
-  margin-top: 0; /* Reset margin se necessário */
+.feed-container {
+  width: 100%;
+  max-width: 700px; /* Limitar a largura do feed para melhor leitura */
+  margin: 0 auto; /* Centralizar o feed */
+}
+
+.header { /* Estilo para o H1 dentro de .content */
+  color: var(--primary-dark, #004d40);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.load-more-trigger {
+  height: 20px; 
+  margin: 10px 0;
+  /* Pode ser útil para depuração:
+  border: 1px dashed red; 
+  */
+}
+
+.feed-status-message {
+  text-align: center;
+  padding: 20px;
+  color: var(--secondary-dark, #555);
+  font-style: italic;
+  margin-top: 15px;
+}
+
+.feed-status-message.error-message {
+  color: var(--danger, red); 
+  font-style: normal;
+  font-weight: bold;
+  background-color: var(--danger-light, #ffebee); /* Fundo claro para erro */
+  border: 1px solid var(--danger, red);
+  border-radius: 6px;
+  padding: 15px;
 }
 
 /* Adicione estas variáveis ao seu global.css ou index.css se ainda não estiverem lá */

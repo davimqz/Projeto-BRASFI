@@ -1,4 +1,4 @@
-time="2025-06-05T07:48:58-03:00" level=warning msg="/home/fernando/Desktop/Developer/cesar/projetos/periodo_3/projetos/Projeto-BRASFI/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+time="2025-06-05T08:35:56-03:00" level=warning msg="/home/fernando/Desktop/Developer/cesar/projetos/periodo_3/projetos/Projeto-BRASFI/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
 nginx-1  | /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
 nginx-1  | /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
 nginx-1  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
