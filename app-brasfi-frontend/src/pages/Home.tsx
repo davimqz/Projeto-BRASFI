@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
 import logo from '../assets/round_logo.png';
 import profilePhoto from '../assets/profile_photo_sample.png';

@@ -70,6 +70,11 @@ const ProfilePage: React.FC = () => {
     setError(null);
     setSuccessMessage(null);
 
+    if (!name.trim() || !email.trim()) {
+      setError('Nome e Email são campos obrigatórios e não podem estar em branco.');
+      return;
+    }
+
     const token = getAuthToken();
     const userId = getUserId();
 

@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios';
 import type { LoginCredentials, RegisterData, AuthResponse } from '../types/auth';
 
 // Usando o proxy reverso do Nginx
-const API_URL = '/api';
+const API_URL = '';
 
 // Configuração global do axios
 const axiosInstance = axios.create({
