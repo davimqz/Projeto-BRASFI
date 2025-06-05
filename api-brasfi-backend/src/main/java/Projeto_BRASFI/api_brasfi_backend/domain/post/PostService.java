@@ -59,21 +59,16 @@ public class PostService {
             post.setContent(dto.getContent());
         }
         if (dto.getMediaUrl() != null) {
-            post.setMediaUrl(dto.getMediaUrl());
-        } else if (dto.getMediaUrl() == null && post.getMediaUrl() != null) {
+            if (dto.getMediaUrl().trim().isEmpty()) {
+                post.setMediaUrl(null);
+            } else {
+                post.setMediaUrl(dto.getMediaUrl());
+            }
+        } else {
             post.setMediaUrl(null);
         }
 
-        if (dto.getAuthorId() != null && (post.getAuthor() == null || !post.getAuthor().getId().equals(dto.getAuthorId()))) {
-            Member author = memberRepository.findById(dto.getAuthorId())
-                    .orElseThrow(() -> new EntityNotFoundException("Author not found with ID: " + dto.getAuthorId()));
-            post.setAuthor(author);
-        }
-
-        if (dto.getCommunityId() != null && (post.getCommunity() == null || !post.getCommunity().getId().equals(dto.getCommunityId()))) {
-            Community community = communityService.findById(dto.getCommunityId());
-            post.setCommunity(community);
-        }
+        post.setCreatedAt(LocalDateTime.now());
         
         return postRepository.save(post);
     }

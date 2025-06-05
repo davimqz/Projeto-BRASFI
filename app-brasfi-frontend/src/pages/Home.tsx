@@ -37,6 +37,9 @@ export default function Home() {
   const [deleteError, setDeleteError] = useState<string | null>(null);
   const [isDeletingPost, setIsDeletingPost] = useState<boolean>(false);
 
+  // Estado para erro geral de edição de post (opcional, se quisermos um feedback mais centralizado)
+  const [editPostError, setEditPostError] = useState<string | null>(null);
+
   // Ref para o observer da rolagem infinita
   const observer = useRef<IntersectionObserver | null>(null);
   const loadMoreRef = useCallback((node: HTMLDivElement | null) => {
@@ -219,6 +222,58 @@ export default function Home() {
     }
   };
 
+  const handleSaveEditPost = async (postId: number, newContent: string, newMediaUrl: string, authorId: number): Promise<boolean> => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error("Token não encontrado para editar post.");
+      setEditPostError("Autenticação necessária. Faça login novamente."); // Erro mais geral
+      return false;
+    }
+    if (selectedCommunityId === null) {
+      console.error("CommunityId não selecionado para editar post.");
+      setEditPostError("Comunidade não selecionada. Não foi possível salvar.");
+      return false;
+    }
+
+    setEditPostError(null); // Limpa erro anterior
+
+    try {
+      const payload = {
+        content: newContent,
+        mediaUrl: newMediaUrl.trim() === '' ? null : newMediaUrl.trim(),
+        authorId: authorId, // O autor não deve mudar na edição
+        communityId: selectedCommunityId // A comunidade não deve mudar na edição
+      };
+
+      const response = await axios.put<Post>(
+        `${API_URL}/post/${postId}`,
+        payload,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      if (response.status === 200 && response.data) {
+        setPosts(prevPosts => 
+          prevPosts.map(p => (p.id === postId ? response.data : p))
+        );
+        // Ordenar os posts novamente pela data de criação (que agora é a data de edição)
+        // para garantir que o post editado apareça no topo se for o mais recente.
+        setPosts(currentPosts => 
+          [...currentPosts].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+        );
+        return true; // Sucesso
+      }
+      return false; // Falha se não for 200 ou não tiver dados
+    } catch (error) {
+      console.error("Erro ao salvar edição do post:", error);
+      if (axios.isAxiosError(error) && error.response) {
+        setEditPostError(`Falha ao salvar: ${error.response.data.message || error.message}`);
+      } else {
+        setEditPostError("Ocorreu um erro desconhecido ao salvar a edição.");
+      }
+      return false; // Falha
+    }
+  };
+
   return (
     <div className="home-container">
       {/* Header Superior */}
@@ -276,6 +331,7 @@ export default function Home() {
                     post={post} 
                     currentUserId={currentUserId} 
                     onRequestDelete={handleRequestDelete} 
+                    onSaveEdit={handleSaveEditPost}
                   />
                 ))}
                 
@@ -294,6 +350,7 @@ export default function Home() {
                    <p className="feed-status-message">Nenhum post encontrado nesta comunidade.</p>
                 )}
                 {feedError && <p className="feed-status-message error-message">{feedError}</p>}
+                {editPostError && <p className="feed-status-message error-message">{editPostError}</p>}
               </div>
             </>
           )}
