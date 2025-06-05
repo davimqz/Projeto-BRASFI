@@ -1,0 +1,105 @@
+.create-post-page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f0f2f5; /* Cor de fundo similar à Home */
+}
+
+.create-post-header {
+  background-color: #ffffff; /* Cabeçalho branco */
+  padding: 15px 30px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.create-post-header .back-button {
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  color: #333;
+  cursor: pointer;
+  margin-right: 20px;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.create-post-header .back-button:hover {
+  background-color: #f0f0f0;
+}
+
+.create-post-header h1 {
+  font-size: 1.8em;
+  color: #333;
+  margin: 0;
+}
+
+.create-post-main-content {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+}
+
+.create-post-form {
+  background-color: #ffffff;
+  padding: 30px 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 700px; /* Limita a largura máxima do formulário */
+}
+
+.create-post-form .form-group {
+  margin-bottom: 25px;
+}
+
+.create-post-form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.create-post-form textarea,
+.create-post-form input[type=\"url\"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  box-sizing: border-box; /* Para o padding não aumentar o tamanho */
+}
+
+.create-post-form textarea {
+  resize: vertical; /* Permite redimensionamento vertical */
+  min-height: 120px;
+}
+
+.create-post-form .error-message {
+  color: #d9534f; /* Vermelho para erros */
+  margin-top: 15px;
+  text-align: center;
+}
+
+.create-post-form .submit-button {
+  background-color: #007bff; /* Azul primário */
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1em;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s ease;
+}
+
+.create-post-form .submit-button:hover {
+  background-color: #0056b3; /* Azul mais escuro no hover */
+}
+
+.create-post-form .submit-button:disabled {
+  background-color: #a0a0a0;
+  cursor: not-allowed;
+} 

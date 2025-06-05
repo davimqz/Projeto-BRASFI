@@ -164,6 +164,36 @@
   padding: 15px;
 }
 
+/* Estilos para o botão de Criar Nova Publicação */
+.create-post-button-container {
+  margin-bottom: 20px; /* Espaço entre o botão e o feed */
+  display: flex;
+  justify-content: center; /* Centraliza o botão se o container for mais largo */
+}
+
+.create-post-button {
+  padding: 10px 20px;
+  background-color: var(--primary, #007bff); /* Usando a variável primária, fallback para azul */
+  color: var(--white, #ffffff);
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.create-post-button:hover {
+  background-color: var(--primary-dark, #0056b3); /* Tom mais escuro da primária */
+  transform: translateY(-1px);
+}
+
+.create-post-button:active {
+  transform: translateY(0px);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
 /* Adicione estas variáveis ao seu global.css ou index.css se ainda não estiverem lá */
 /* 
 :root {

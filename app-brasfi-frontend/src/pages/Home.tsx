@@ -4,7 +4,7 @@ import logo from '../assets/round_logo.png';
 import profilePhoto from '../assets/profile_photo_sample.png';
 import '../styles/global.css'; // Importando estilos globais
 import '../styles/home.css';   // Importando estilos específicos da Home
-import { Link } from 'react-router-dom'; // Importar Link
+import { Link, useLocation, useNavigate } from 'react-router-dom'; // Importar Link e useLocation/useNavigate
 import type { Post, Page as ApiPage, Community } from '../types/api'; // Importar tipos
 import PostItem from '../components/PostItem'; // Importar PostItem
 
@@ -13,6 +13,8 @@ const POSTS_PER_PAGE = 10; // Definir quantos posts carregar por vez
 
 export default function Home() {
   const [userName, setUserName] = useState<string | null>(null);
+  const location = useLocation(); // Hook para acessar location.state
+  const navigate = useNavigate(); // Hook para navegação programática
 
   // Estados para comunidades
   const [communities, setCommunities] = useState<Community[]>([]);
@@ -85,6 +87,41 @@ export default function Home() {
     fetchCommunities();
   }, []);
 
+  // useEffect para lidar com o retorno da CreatePostPage
+  useEffect(() => {
+    if (location.state) {
+      const { newPostInCommunityId, selectCommunityId } = location.state as { newPostInCommunityId?: number, selectCommunityId?: number };
+      
+      let communityToProcess: number | null = null;
+
+      if (newPostInCommunityId !== undefined) {
+        communityToProcess = newPostInCommunityId;
+      } else if (selectCommunityId !== undefined) {
+        communityToProcess = selectCommunityId;
+      }
+
+      if (communityToProcess !== null) {
+        // Se a comunidade já estiver selecionada e for a mesma de newPostInCommunityId, 
+        // precisamos forçar a recarga chamando handleCommunityClick com uma pequena alteração
+        // ou simplificando: sempre chamar handleCommunityClick, pois ele já reseta e busca.
+        // A lógica atual do handleCommunityClick já previne recarga desnecessária se o ID for o mesmo e tiver posts,
+        // então precisamos garantir que ele *sempre* recarregue se newPostInCommunityId estiver presente.
+        if (newPostInCommunityId !== undefined && communityToProcess === selectedCommunityId) {
+            // Forçar a recarga para a mesma comunidade para ver o novo post
+            setPosts([]); 
+            setCurrentPage(0); 
+            setHasMorePosts(true); 
+            setFeedError(null); 
+            fetchPosts(communityToProcess, 0);
+        } else {
+            handleCommunityClick(communityToProcess);
+        }
+        // Limpa o state da navegação para evitar recargas em loop
+        navigate(location.pathname, { replace: true, state: {} });
+      }
+    }
+  }, [location.state, navigate, selectedCommunityId]); // Adicionar selectedCommunityId como dependência para a lógica de forçar recarga
+
   const fetchPosts = async (communityId: number, pageToFetch: number) => {
     if (isLoading && pageToFetch !== 0) return; // Evitar múltiplas chamadas de scroll enquanto uma já carrega, exceto para o clique inicial
     setIsLoading(true);
@@ -112,14 +149,24 @@ export default function Home() {
   };
 
   const handleCommunityClick = (communityId: number) => {
-    if (selectedCommunityId === communityId && posts.length > 0) return; // Não recarrega se já selecionada e com posts
+    // Modificado para permitir recarga forçada se location.state indicou um novo post
+    // A verificação original continua válida para cliques normais do usuário.
+    if (selectedCommunityId === communityId && posts.length > 0 && !location.state?.newPostInCommunityId) {
+      return; 
+    }
 
     setSelectedCommunityId(communityId);
     setPosts([]); 
     setCurrentPage(0); 
     setHasMorePosts(true); 
     setFeedError(null); 
-    fetchPosts(communityId, 0); // Buscar a primeira página (página 0)
+    fetchPosts(communityId, 0);
+  };
+
+  const handleCreatePost = () => {
+    if (selectedCommunityId) {
+      navigate(`/comunidade/${selectedCommunityId}/criar-post`);
+    }
   };
 
   return (
@@ -166,27 +213,34 @@ export default function Home() {
           )}
 
           {selectedCommunityId && (
-            <div className="feed-container">
-              {posts.map(post => (
-                <PostItem key={post.id} post={post} />
-              ))}
-              
-              {hasMorePosts && !isLoading && (
-                <div ref={loadMoreRef} className="load-more-trigger">
-                  {/* Pode-se adicionar um botão "Carregar mais" aqui como fallback ou alternativa */}
-                </div>
-              )}
+            <>
+              <div className="create-post-button-container">
+                <button onClick={handleCreatePost} className="create-post-button">
+                  Criar Nova Publicação
+                </button>
+              </div>
+              <div className="feed-container">
+                {posts.map(post => (
+                  <PostItem key={post.id} post={post} />
+                ))}
+                
+                {hasMorePosts && !isLoading && (
+                  <div ref={loadMoreRef} className="load-more-trigger">
+                    {/* Pode-se adicionar um botão "Carregar mais" aqui como fallback ou alternativa */}
+                  </div>
+                )}
 
-              {isLoading && <p className="feed-status-message">Carregando posts...</p>}
-              
-              {!isLoading && !hasMorePosts && posts.length > 0 && (
-                <p className="feed-status-message">Você chegou ao fim dos posts.</p>
-              )}
-              {!isLoading && posts.length === 0 && !hasMorePosts && selectedCommunityId && (
-                 <p className="feed-status-message">Nenhum post encontrado nesta comunidade.</p>
-              )}
-              {feedError && <p className="feed-status-message error-message">{feedError}</p>}
-            </div>
+                {isLoading && <p className="feed-status-message">Carregando posts...</p>}
+                
+                {!isLoading && !hasMorePosts && posts.length > 0 && (
+                  <p className="feed-status-message">Você chegou ao fim dos posts.</p>
+                )}
+                {!isLoading && posts.length === 0 && !hasMorePosts && selectedCommunityId && (
+                   <p className="feed-status-message">Nenhum post encontrado nesta comunidade.</p>
+                )}
+                {feedError && <p className="feed-status-message error-message">{feedError}</p>}
+              </div>
+            </>
           )}
         </div>
       </div>
