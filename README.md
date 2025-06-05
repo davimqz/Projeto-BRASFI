@@ -1,7 +1,7 @@
 
 # 🌱 Projetos 3
 
-Este é o repositório do projeto desenvolvido para a **BRASFI (Aliança Brasileira de Finanças e Investimentos Sustentáveis)**, como parte da disciplina **Projetos 3**. Nosso objetivo é **conectar pessoas e organizações engajadas com finanças sustentáveis**, oferecendo acesso a conteúdos, comunidades, interações, eventos e iniciativas que promovem a transformação do mercado com foco em desenvolvimento sustentável.
+Em parceria com a **BRASFI (Aliança Brasileira de Finanças e Investimentos Sustentáveis)**, este projeto foi desenvolvido no âmbito da disciplina **Projetos 3**, com a missão de conectar indivíduos e instituições que acreditam no poder transformador das finanças sustentáveis. A aplicação busca incentivar o engajamento por meio de conteúdos, comunidades e iniciativas que impulsionam um futuro mais consciente.
 
 ---
 
@@ -20,6 +20,7 @@ Spring Boot
 React, Vite, JavaScript, HTML, CSS
 
 **Testes Automatizados:**  
+*Não aplicável neste ciclo*
 
 ---
 
@@ -39,16 +40,16 @@ React, Vite, JavaScript, HTML, CSS
 
 ### 📌 Diagrama UML das Entidades
 
-![Diagrama UML](./uml -classes simplified enum-1.png)
+- [Clique aqui para visualizar o diagrama no Lucidchart](https://lucid.app/lucidchart/ca2391fe-ca79-4139-8848-c9dbf4f7d251/edit?invitationId=inv_5f9f56d0-7efc-44cd-a1b7-cd8d96ea09f5&page=0_0#)
 
 **Histórias:**  
 No total, foram desenvolvidas **16 histórias de usuário**, incluindo:
 
-- Cadastro e autenticação de membros
-- Criação e gerenciamento de comunidades
-- Sistema de postagens e comentários
-- Mensagens privadas entre membros
-- Visualização de perfil e histórico educacional
+- Cadastro e autenticação de membros  
+- Criação e gerenciamento de comunidades  
+- Sistema de postagens e comentários  
+- Mensagens privadas entre membros  
+- Visualização de perfil e histórico educacional  
 
 ---
 
