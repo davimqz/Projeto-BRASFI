@@ -29,4 +29,11 @@ export interface Page<T> {
   first: boolean;       // true se esta é a primeira página
   numberOfElements: number; // número de elementos na página atual
   empty: boolean;       // true se a página atual está vazia
+}
+
+export interface Community {
+  id: number;
+  name: string;
+  // Adicione outros campos se forem retornados e necessários no futuro
+  // description?: string; 
 } 

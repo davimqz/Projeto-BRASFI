@@ -5,7 +5,7 @@ import profilePhoto from '../assets/profile_photo_sample.png';
 import '../styles/global.css'; // Importando estilos globais
 import '../styles/home.css';   // Importando estilos específicos da Home
 import { Link } from 'react-router-dom'; // Importar Link
-import type { Post, Page as ApiPage } from '../types/api'; // Importar tipos
+import type { Post, Page as ApiPage, Community } from '../types/api'; // Importar tipos
 import PostItem from '../components/PostItem'; // Importar PostItem
 
 const API_URL = '/api'; // Consistente com ProfilePage
@@ -13,6 +13,11 @@ const POSTS_PER_PAGE = 10; // Definir quantos posts carregar por vez
 
 export default function Home() {
   const [userName, setUserName] = useState<string | null>(null);
+
+  // Estados para comunidades
+  const [communities, setCommunities] = useState<Community[]>([]);
+  const [communitiesError, setCommunitiesError] = useState<string | null>(null);
+  const [isLoadingCommunities, setIsLoadingCommunities] = useState<boolean>(false);
 
   // Estados para o feed
   const [selectedCommunityId, setSelectedCommunityId] = useState<number | null>(null);
@@ -58,7 +63,26 @@ export default function Home() {
         }
       }
     };
+
+    const fetchCommunities = async () => {
+      setIsLoadingCommunities(true);
+      setCommunitiesError(null);
+      const token = localStorage.getItem('token');
+      try {
+        const response = await axios.get<Community[]>(`${API_URL}/community`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setCommunities(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar comunidades:", error);
+        setCommunitiesError("Falha ao carregar a lista de comunidades. Tente recarregar a página.");
+      } finally {
+        setIsLoadingCommunities(false);
+      }
+    };
+
     fetchUserName();
+    fetchCommunities();
   }, []);
 
   const fetchPosts = async (communityId: number, pageToFetch: number) => {
@@ -116,31 +140,22 @@ export default function Home() {
 
       <div className="main-content-area"> {/* Novo container para sidebar e content */}
         <div className="sidebar">
-          {/* Cabeçalho: logo + nome - Removido daqui, movido para o top-header */}
-          {/* 
-          <div className="logo-container">
-            <img src={logo} alt="Logo da Empresa" className="logo" />
-            <h2 className="logo-name">Brasfi</h2>
-          </div> 
-          */}
-
           {/* Lista de comunidades */}
           <ul className="community-list">
-            <li 
-              className={`community-item ${selectedCommunityId === 1 ? 'active' : ''}`}
-              onClick={() => handleCommunityClick(1)} // Assumindo ID 1 para "Comunidade 1"
-            >
-              Comunidade 1
-            </li>
-            {/* Outras comunidades podem ser adicionadas aqui no futuro */}
-            {/* Exemplo:
-            <li 
-              className={`community-item ${selectedCommunityId === 2 ? 'active' : ''}`}
-              onClick={() => handleCommunityClick(2)}
-            >
-              Comunidade 2
-            </li>
-            */}
+            {isLoadingCommunities && <li className="community-item loading">Carregando comunidades...</li>}
+            {communitiesError && <li className="community-item error">{communitiesError}</li>}
+            {!isLoadingCommunities && !communitiesError && communities.length === 0 && (
+              <li className="community-item">Nenhuma comunidade encontrada.</li>
+            )}
+            {!isLoadingCommunities && !communitiesError && communities.map(community => (
+              <li 
+                key={community.id}
+                className={`community-item ${selectedCommunityId === community.id ? 'active' : ''}`}
+                onClick={() => handleCommunityClick(community.id)}
+              >
+                {community.name}
+              </li>
+            ))}
           </ul>
         </div>
 
