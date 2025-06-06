@@ -7,17 +7,30 @@ Em parceria com a **BRASFI (Aliança Brasileira de Finanças e Investimentos Sus
 
 ## ⚙ Tecnologias Utilizadas
 
-**Linguagem de Programação:**  
-Java
+<div align="center">
 
-**Banco de Dados:**  
-MySQL
+<!-- Linha 1 -->
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" width="45" height="45" title="Java"/>
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" width="45" height="45" title="MySQL"/>
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt="Spring Boot" width="45" height="45" title="Spring Boot"/>
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" width="45" height="45" title="React"/>
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vite/vite-original.svg" alt="Vite" width="45" height="45" title="Vite"/>
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" width="45" height="45" title="JavaScript"/>
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" width="45" height="45" title="CSS3"/>
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" width="45" height="45" title="HTML5"/>
 
-**Framework de Desenvolvimento:**  
-Spring Boot
+</div>
 
-**Frontend:**  
-React, Vite, JavaScript, HTML, CSS
+<p align="center">
+  <b>Java</b> &nbsp;|&nbsp;
+  <b>MySQL</b> &nbsp;|&nbsp;
+  <b>Spring Boot</b> &nbsp;|&nbsp;
+  <b>React</b> &nbsp;|&nbsp;
+  <b>Vite</b> &nbsp;|&nbsp;
+  <b>JavaScript</b> &nbsp;|&nbsp;
+  <b>CSS3</b> &nbsp;|&nbsp;
+  <b>HTML5</b>
+</p>
 
 **Testes Automatizados:**  
 *Não aplicável neste ciclo*
