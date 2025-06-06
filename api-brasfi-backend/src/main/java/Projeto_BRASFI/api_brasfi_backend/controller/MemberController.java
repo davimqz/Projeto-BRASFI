@@ -20,7 +20,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/member")
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class MemberController {
 
     private static final Logger logger = LoggerFactory.getLogger(MemberController.class);

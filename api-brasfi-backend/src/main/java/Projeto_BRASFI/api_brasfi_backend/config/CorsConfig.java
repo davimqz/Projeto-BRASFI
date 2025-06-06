@@ -19,8 +19,8 @@ public class CorsConfig {
         logger.info("Configurando CorsFilter");
         CorsConfiguration config = new CorsConfiguration();
         
-        // Permitir apenas a origem do frontend
-        config.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+        // Permitir as origens do frontend de desenvolvimento e produção
+        config.setAllowedOrigins(Arrays.asList("http://localhost:5173", "https://d1w8o5sk5gixl1.cloudfront.net"));
         
         // Permitir credenciais
         config.setAllowCredentials(true);
