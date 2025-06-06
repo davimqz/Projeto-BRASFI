@@ -1,0 +1,77 @@
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: var(--dark);
+}
+
+.auth-card {
+  background-color: var(--secondary);
+  padding: 2rem;
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.auth-card h2 {
+  color: var(--white);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.auth-link {
+  margin-top: 1rem;
+  text-align: center;
+  color: var(--white);
+}
+
+.auth-link a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+}
+
+textarea.form-control {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.loading-message,
+.error-message,
+.success-message {
+  text-align: center;
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.loading-message {
+  color: var(--white-muted, #adb5bd);
+}
+
+.error-message {
+  background-color: rgba(220, 53, 69, 0.1); /* Cor vermelha com opacidade */
+  color: #dc3545; /* Cor vermelha */
+  border: 1px solid #dc3545;
+}
+
+.success-message {
+  background-color: rgba(25, 135, 84, 0.1); /* Cor verde com opacidade */
+  color: #198754; /* Cor verde */
+  border: 1px solid #198754;
+} 

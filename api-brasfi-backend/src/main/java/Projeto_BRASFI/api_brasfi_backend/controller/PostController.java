@@ -5,6 +5,8 @@ import Projeto_BRASFI.api_brasfi_backend.domain.post.like.PostLike;
 import Projeto_BRASFI.api_brasfi_backend.domain.post.like.PostLikeDto;
 import Projeto_BRASFI.api_brasfi_backend.domain.post.like.PostLikeService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +34,14 @@ public class PostController {
     @GetMapping
     public ResponseEntity<List<Post>> listAll() {
         return ResponseEntity.ok(service.listAll());
+    }
+
+    @GetMapping("/community/{communityId}")
+    public ResponseEntity<Page<Post>> getPostsByCommunity(
+            @PathVariable Long communityId,
+            Pageable pageable) {
+        Page<Post> posts = service.findPostsByCommunity(communityId, pageable);
+        return ResponseEntity.ok(posts);
     }
 
     @GetMapping("/{id}")

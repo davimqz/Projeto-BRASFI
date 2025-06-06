@@ -1,0 +1,28 @@
+{
+    "ServiceName": "brasfi-frontend-service",
+    "SourceConfiguration": {
+        "ImageRepository": {
+            "ImageIdentifier": "480314817080.dkr.ecr.us-east-1.amazonaws.com/brasfi-frontend:latest",
+            "ImageRepositoryType": "ECR",
+            "ImageConfiguration": {
+                "Port": "80"
+            }
+        },
+        "AuthenticationConfiguration": {
+            "AccessRoleArn": "arn:aws:iam::480314817080:role/service-role/AppRunnerECRAccessRole"
+        },
+        "AutoDeploymentsEnabled": true
+    },
+    "InstanceConfiguration": {
+        "Cpu": "1 vCPU",
+        "Memory": "2 GB"
+    },
+    "HealthCheckConfiguration": {
+        "Protocol": "HTTP",
+        "Path": "/",
+        "Interval": 10,
+        "Timeout": 5,
+        "HealthyThreshold": 1,
+        "UnhealthyThreshold": 2
+    }
+} 

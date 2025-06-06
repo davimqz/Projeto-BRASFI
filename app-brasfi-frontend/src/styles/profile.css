@@ -1,0 +1,167 @@
+/* styles/profile.css */
+
+.profile-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Ou flex-start, stretch permite que o botão defina sua própria largura ou use 100% se necessário */
+  justify-content: flex-start;
+  min-height: calc(100vh - 60px); /* Altura da viewport menos o header (ajuste 60px se seu header for diferente) */
+  padding: 2rem;
+  background-color: var(--dark, #121212);
+  color: var(--white, #ffffff);
+  box-sizing: border-box;
+}
+
+/* Novo: Wrapper para o botão de voltar para controlar seu alinhamento */
+.back-button-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1.5rem; /* Espaço entre o botão e o card abaixo */
+}
+
+.profile-card {
+  background-color: var(--secondary, #1e1e1e);
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px; /* Largura máxima do card */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  margin-left: auto; /* Para centralizar o card quando o container pai tem align-items: stretch */
+  margin-right: auto; /* Para centralizar o card */
+}
+
+.profile-title {
+  color: var(--primary, #007bff);
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Espaçamento entre os grupos de formulário */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--white-muted, #adb5bd); /* Um tom de branco mais suave para labels */
+  font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group textarea {
+  background-color: var(--dark-light, #2a2a2a); /* Um pouco mais claro que o --dark */
+  color: var(--white, #ffffff);
+  border: 1px solid var(--secondary-dark, #333333); /* Borda sutil */
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary, #007bff);
+  box-shadow: 0 0 0 3px rgba(var(--primary-rgb, 0, 123, 255), 0.25); /* Adapte --primary-rgb ou use uma cor fixa */
+}
+
+.form-group input[type="password"]:disabled {
+  background-color: var(--dark-disabled, #222222);
+  cursor: not-allowed;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.submit-button {
+  background-color: var(--primary, #007bff);
+  color: var(--white, #ffffff);
+  border: none;
+  padding: 0.85rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+  margin-top: 1rem; /* Espaço antes do botão */
+}
+
+.submit-button:hover {
+  background-color: var(--primary-darker, #0056b3); /* Defina --primary-darker */
+}
+
+.submit-button:active {
+  transform: translateY(1px);
+}
+
+/* Estilos para o botão de voltar */
+.back-to-home-button.top-left {
+  display: inline-block; /* Mantém as propriedades do botão */
+  text-align: center;
+  background-color: transparent;
+  color: var(--primary, #007bff);
+  border: 2px solid var(--primary, #007bff);
+  padding: 0.7rem 1.2rem; /* Ajustado para melhor aparência no topo */
+  border-radius: 6px;
+  font-size: 0.9rem; /* Ajustado */
+  font-weight: 500; /* Ajustado */
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, transform 0.1s ease;
+  text-decoration: none;
+  /* margin-top: 0.75rem; Removido, o wrapper ou o posicionamento direto cuidarão disso */
+  /* align-self: flex-start; Adicionado para garantir que ele fique à esquerda no container flex */
+}
+
+.back-to-home-button.top-left:hover {
+  background-color: var(--primary, #007bff);
+  color: var(--white, #ffffff);
+}
+
+.back-to-home-button.top-left:active {
+  transform: translateY(1px);
+  background-color: var(--primary-darker, #0056b3);
+  border-color: var(--primary-darker, #0056b3);
+}
+
+/* Estilos para mensagens de feedback */
+.loading-message,
+.error-message,
+.success-message {
+  text-align: center;
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.loading-message {
+  color: var(--white-muted, #adb5bd);
+}
+
+.error-message {
+  background-color: rgba(220, 53, 69, 0.1); /* Cor vermelha com opacidade */
+  color: #dc3545; /* Cor vermelha */
+  border: 1px solid #dc3545;
+}
+
+.success-message {
+  background-color: rgba(25, 135, 84, 0.1); /* Cor verde com opacidade */
+  color: #198754; /* Cor verde */
+  border: 1px solid #198754;
+} 

@@ -7,9 +7,14 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "docker:dev": "docker-compose up -d",
+    "docker:logs": "docker-compose logs -f frontend",
+    "docker:restart": "docker-compose restart frontend",
+    "docker:rebuild": "docker-compose build frontend && docker-compose up -d frontend"
   },
   "dependencies": {
+    "axios": "^1.9.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^6.30.0"

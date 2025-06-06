@@ -1,72 +1,284 @@
 /* styles/home.css */
 
-/* Estilos específicos da página Home */
-.home-container {
-  display: flex;
-  width: 100vw;
-  height: 100vh; 
-  background-color: rgb(50, 128, 128); 
-}
+/* Estilos para Home.tsx */
 
-/* Barra lateral */
-.sidebar {
-  width: 20%;
-  height: 100vh;
-  background-color: #1a1a1a;
-  color: white;
+/* Estilos para o novo header em Home.tsx */
+.top-header {
   display: flex;
-  flex-direction: column;
-  padding: 16px; /* Adiciona espaço interno consistente */
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.5rem; /* Ajuste o padding conforme necessário */
+  background-color: var(--secondary, #2c3e50); /* Cor de fallback se a variável não estiver definida */
+  color: var(--white, #ffffff);
+  width: 100%;
   box-sizing: border-box;
+  position: sticky; /* Para manter o header no topo ao rolar */
+  top: 0;
+  z-index: 1000; /* Para garantir que fique acima de outros conteúdos */
+  /* border: 2px solid var(--white); */ /* Opcional: borda branca */
 }
 
-/* Cabeçalho com logo e nome */
-.logo-container {
+.logo-container-header {
   display: flex;
   align-items: center;
-  margin-bottom: 24px; /* Espaço entre logo e lista */
 }
 
-/* Imagem da logo */
-.logo {
-  width: 7vw;
-  height: auto; 
-  object-fit: contain;
-  margin-right: 12px; /* Aproxima o nome da logo */
+.logo-header {
+  height: 40px; /* Ajuste o tamanho conforme necessário */
+  margin-right: 0.75rem;
 }
 
-/* Nome da empresa */
-.logo-name {
-  font-size: 2rem;
+.logo-name-header {
+  font-size: 1.5rem; /* Ajuste o tamanho conforme necessário */
   font-weight: bold;
-  white-space: nowrap;
+  color: var(--primary, #3498db); /* Cor de fallback */
 }
 
-/* Lista de comunidades */
+.avatar-link {
+  text-decoration: none;
+}
+
+.avatar-placeholder {
+  width: 40px; /* Tamanho do avatar */
+  height: 40px; /* Tamanho do avatar */
+  border-radius: 50%; /* Para forma circular */
+  background-color: var(--primary, #3498db); /* Cor de fallback */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--white, #ffffff);
+  font-weight: bold;
+  cursor: pointer;
+  /* border: 2px solid var(--white); */ /* Opcional: borda branca */
+}
+
+.user-greeting-avatar-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* Espaço entre a saudação e o avatar */
+}
+
+.user-greeting {
+  color: var(--white, #ffffff);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* Ajustes para o home-container e main-content-area */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--dark, #1a1a1a); /* Cor de fallback */
+}
+
+.main-content-area {
+  display: flex;
+  flex-grow: 1; /* Para ocupar o espaço restante abaixo do header */
+  overflow: hidden; /* Para evitar scroll duplo se a sidebar ou content tiverem seu próprio scroll */
+}
+
+.sidebar {
+  width: 250px;
+  background-color: var(--white, #fff);
+  padding: 20px;
+  border-right: 1px solid var(--secondary-light, #e0e0e0);
+  overflow-y: auto; /* Scroll para a sidebar se a lista de comunidades for grande */
+  /* Transições suaves para interações futuras */
+  transition: width 0.3s ease;
+}
+
 .community-list {
-  list-style-type: none;
+  list-style: none;
   padding: 0;
   margin: 0;
-  font-size: 1.1rem;
 }
 
 .community-item {
-  margin-bottom: 12px;
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  color: var(--dark-gray, #333);
+  font-weight: 500;
 }
 
 .community-item:hover {
-  color: #d1d5db;
+  background-color: var(--secondary-lighter, #f0f0f0); /* Um tom bem claro da secundária ou cinza */
+  color: var(--primary, #00796b);
 }
 
-/* Conteúdo principal */
-.content {
-  padding: 24px; 
-}
-
-/* Título */
-.header {
-  font-size: 2.5rem; 
+.community-item.active {
+  background-color: var(--primary, #00796b);
+  color: var(--white, #fff);
   font-weight: bold;
-  margin-bottom: 16px;
+}
+
+.community-item.active:hover {
+  background-color: var(--primary-dark, #00695c); /* Um tom um pouco mais escuro da primária no hover do ativo */
+}
+
+.content {
+  flex-grow: 1; /* Ocupa o restante do espaço */
+  padding: 20px;
+  overflow-y: auto; /* Scroll para o conteúdo do feed */
+  background-color: var(--background-content, #f4f6f8); /* Uma cor de fundo suave para a área de conteúdo */
+}
+
+.feed-container {
+  width: 100%;
+  max-width: 700px; /* Limitar a largura do feed para melhor leitura */
+  margin: 0 auto; /* Centralizar o feed */
+}
+
+.header { /* Estilo para o H1 dentro de .content */
+  color: var(--primary-dark, #004d40);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.load-more-trigger {
+  height: 20px; 
+  margin: 10px 0;
+  /* Pode ser útil para depuração:
+  border: 1px dashed red; 
+  */
+}
+
+.feed-status-message {
+  text-align: center;
+  padding: 20px;
+  color: var(--secondary-dark, #555);
+  font-style: italic;
+  margin-top: 15px;
+}
+
+.feed-status-message.error-message {
+  color: var(--danger, red); 
+  font-style: normal;
+  font-weight: bold;
+  background-color: var(--danger-light, #ffebee); /* Fundo claro para erro */
+  border: 1px solid var(--danger, red);
+  border-radius: 6px;
+  padding: 15px;
+}
+
+/* Estilos para o botão de Criar Nova Publicação */
+.create-post-button-container {
+  margin-bottom: 20px; /* Espaço entre o botão e o feed */
+  display: flex;
+  justify-content: center; /* Centraliza o botão se o container for mais largo */
+}
+
+.create-post-button {
+  padding: 10px 20px;
+  background-color: var(--primary, #007bff); /* Usando a variável primária, fallback para azul */
+  color: var(--white, #ffffff);
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.create-post-button:hover {
+  background-color: var(--primary-dark, #0056b3); /* Tom mais escuro da primária */
+  transform: translateY(-1px);
+}
+
+.create-post-button:active {
+  transform: translateY(0px);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Adicione estas variáveis ao seu global.css ou index.css se ainda não estiverem lá */
+/* 
+:root {
+  --primary: #3498db;  // Azul como exemplo
+  --secondary: #2c3e50; // Azul escuro/cinza como exemplo
+  --dark: #1a1a1a;     // Cinza bem escuro como exemplo
+  --white: #ffffff;
+  --secondary-light: #333333; // Cinza para sidebar
+  --primary-darker: #2980b9; // Azul mais escuro para hover
+}
+*/
+
+/* Estilos para a área de ações do usuário (saudação, avatar, configurações) */
+.user-actions-area {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* Espaço entre saudação, avatar e botão de config */
+  position: relative; /* Para posicionar o dropdown menu */
+}
+
+/* Novo estilo para a área clicável de avatar e settings */
+.avatar-settings-clickable-area {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Espaçamento entre o avatar e os três pontinhos */
+}
+
+.settings-button {
+  background: none;
+  border: none;
+  color: var(--white, #ffffff);
+  font-size: 1.5rem; /* Tamanho do ícone de engrenagem */
+  cursor: pointer;
+  padding: 5px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.settings-button:hover {
+  color: var(--primary-light, #7bceff); /* Um tom mais claro da primária ou branco */
+}
+
+.settings-menu-container {
+ position: relative; /* Necessário para o posicionamento absoluto do dropdown */
+}
+
+.settings-dropdown-menu {
+  position: absolute;
+  top: 100%; /* Abaixo do botão de configurações */
+  right: 0; /* Alinhado à direita do container pai */
+  background-color: var(--white, #ffffff);
+  border: 1px solid var(--secondary-light, #e0e0e0);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1010; /* Acima do header, mas abaixo de modais de alta prioridade */
+  min-width: 160px;
+  padding: 8px 0; /* Espaçamento interno vertical */
+}
+
+.settings-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  text-align: left;
+  background: none;
+  border: none;
+  color: var(--dark-gray, #333);
+  cursor: pointer;
+  font-size: 0.95em;
+  text-decoration: none; /* Para o Link */
+  box-sizing: border-box;
+}
+
+.settings-dropdown-item:hover {
+  background-color: var(--secondary-lighter, #f0f0f0);
+  color: var(--primary, #00796b);
+}
+
+.settings-dropdown-item.logout-button {
+  color: var(--danger, #d9534f); /* Cor de perigo para logout */
+}
+
+.settings-dropdown-item.logout-button:hover {
+  background-color: var(--danger-light, #fbe9e7); /* Fundo claro para perigo no hover */
+  color: var(--danger-dark, #b71c1c);
 }

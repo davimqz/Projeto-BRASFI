@@ -1,0 +1,80 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* Fundo escurecido */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050; /* Acima de outros elementos, mas abaixo de modais de alta prioridade se houver */
+}
+
+.modal-content {
+  background-color: #ffffff;
+  padding: 25px 35px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 450px;
+  text-align: center;
+}
+
+.modal-title {
+  font-size: 1.6em;
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.modal-message {
+  font-size: 1.1em;
+  color: #555;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-around; /* Ou space-between/flex-end se preferir */
+  gap: 15px; /* Espaço entre os botões */
+}
+
+.modal-button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  min-width: 100px;
+}
+
+.confirm-button {
+  background-color: var(--danger, #d9534f); /* Vermelho para confirmação de exclusão */
+  color: white;
+}
+
+.confirm-button:hover {
+  background-color: #c9302c; /* Vermelho mais escuro */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.cancel-button {
+  background-color: #f0f0f0; /* Cinza claro */
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+.cancel-button:hover {
+  background-color: #e0e0e0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.modal-button:disabled {
+  background-color: #cccccc;
+  color: #888888;
+  cursor: not-allowed;
+} 
